@@ -1,0 +1,157 @@
+{include file=header.html}
+
+{include file=top.html}
+
+<div id="content">
+    <div id="left">
+        {include file=left.html}
+    </div>
+
+    <div id="right">
+        <div class="die6">{$store.description|escape:editor}</div>
+		
+		<style>
+			.major ul.list { width:auto; margin:15px 0; }
+			.major ul.list li {
+				float: left;
+				margin-right: 5px;
+				width: 190px;
+				height:400px;
+				overflow:hidden;
+			}
+			.major ul.list li a { text-decoration:none; }
+			.major ul.list li a:hover { text-decoration:underline; }
+			.major ul.list .pdtdata { background:#fff; }
+			.major ul.list .pdtdata p { color:#000; font-size:10pt; font-weight:bold; text-align:left; }
+			
+			.major ul.list .pdtdata .oprice { text-decoration:line-through;  }
+			.major ul.list .pdtdata .pprice { color:#f00; font-size:12pt; font-weight:bold; margin-left:5px; }
+			.major ul.list .pdtimg { width:190px; height:300px; overflow:hidden; border:1px solid #dadada; margin-bottom:5px; position:relative; background:#fff; }
+			
+			.major ul.list .pdtimg img { width:200px; }
+			
+			.major ul.list .pdtimg .icon-discount {position:absolute;right:0px;bottom:0px;width:84px;height:39px;background:url({res file=images/icon_discount.png}) no-repeat;text-align:center;line-height:34px;color:#fff;font-size:12pt;font-weight:bold;}
+				
+
+		</style>
+
+        <!--{if $recommended_goods}-->
+        <div class="module_special">
+            <h2 class="common_title veins2">
+                <div class="ornament1"></div>
+                <div class="ornament2"></div>
+                <span class="ico1"><span class="ico2">{$lang.recommended_goods}</span></span>
+            </h2>
+            <div class="wrap">
+                <div class="wrap_child">
+                    <div class="major">
+                        <ul class="list">
+                            <!--{foreach from=$recommended_goods item=rgoods name=fe_goods}-->
+
+							<li {if $smarty.foreach.fe_goods.iteration % 4 eq 0}style="margin-right:0px;margin-left: 2px;"{/if}>
+								<div class="clearfix" style="position:relative;">
+								<a href="{url app=goods&id=$rgoods.goods_id}" target="_blank">
+									<div class="pdtimg clearfix" style="text-align:center;">
+										<img src="{$rgoods.default_image}" onmouseover="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$rgoods._images.1.image_url}');" onmouseout="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$rgoods.default_image}');" id="gimg{$smarty.foreach.fe_goods.iteration}" />
+										<!-- {if $rgoods.pprice} --><div class="icon-discount">&nbsp;&nbsp;{$rgoods.discount}折</div><!-- {/if} -->
+									</div>
+									<div class="pdtdata clearfix">
+										<p>{$rgoods.goods_name|escape}</p>
+										<p>{$rgoods.brand|escape}</p>
+										<p><span <!-- {if $rgoods.pprice} -->class="oprice"<!-- {/if} -->>{$rgoods.price|price}</span> <!-- {if $rgoods.pprice} --><span class="pprice">{$rgoods.pprice|price}</span><!-- {/if} --></p>
+									
+									</div>
+									
+								</a>
+								</div>
+							</li>
+					
+                            <!--{/foreach}-->
+							
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--{/if}-->
+
+        <!--{if $new_groupbuy and $store.functions.groupbuy and $store.enable_groupbuy}-->
+        <div class="module_special">
+            <h2 class="common_title veins2">
+                <div class="ornament1"></div>
+                <div class="ornament2"></div>
+                <span class="ico1"><span class="ico2">{$lang.new_groupbuy}</span></span>
+            </h2>
+            <div class="wrap">
+                <div class="wrap_child">
+                <div class="group_major">
+                    <ul class="list">
+                        <!--{foreach from=$new_groupbuy item=groupbuy}-->
+                        <li>
+                            <div class="pic"><a href="{url app=groupbuy&id=$groupbuy.group_id}"><img src="{$groupbuy.default_image}" /></a></div>
+                            <h3><a href="{url app=groupbuy&id=$groupbuy.group_id}" target="_blank">{$groupbuy.group_name|escape}</a></h3>
+                            <p><span>{$lang.groupbuy_price}:&nbsp;</span>{$groupbuy.price|price}</p>
+                            <div class="time">{$lang.lefttime}:&nbsp;{$groupbuy.lefttime}</div>
+                        </li>
+                        <!-- {/foreach} -->
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!--{/if}-->
+
+        <div class="module_special">
+            <h2 class="common_title veins2">
+                <div class="ornament1"></div>
+                <div class="ornament2"></div>
+                <span class="ico1"><span class="ico2">{$lang.new_goods}</span></span>
+            </h2>
+            <div class="wrap">
+                <div class="wrap_child">
+                    <!--{if $new_goods}-->
+                    <div class="major">
+                        <ul class="list">
+                            <!--{foreach from=$new_goods item=ngoods name=fe_goods}-->
+							
+							<li {if $smarty.foreach.fe_goods.iteration % 4 eq 0}style="margin-right:0px;margin-left: 2px;"{/if}>
+								<div class="clearfix" style="position:relative;">
+								<a href="{url app=goods&id=$ngoods.goods_id}" target="_blank">
+									<div class="pdtimg clearfix" style="text-align:center;">
+										<img src="{$ngoods.default_image}" onmouseover="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$ngoods._images.1.image_url}');" onmouseout="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$ngoods.default_image}');" id="gimg{$smarty.foreach.fe_goods.iteration}" />
+										<!-- {if $ngoods.pprice} --><div class="icon-discount">&nbsp;&nbsp;{$ngoods.discount}折</div><!-- {/if} -->
+									</div>
+									<div class="pdtdata clearfix">
+										<p>{$ngoods.goods_name|escape}</p>
+										<p>{$ngoods.brand|escape}</p>
+										<p><span <!-- {if $ngoods.pprice} -->class="oprice"<!-- {/if} -->>{$ngoods.price|price}</span> <!-- {if $ngoods.pprice} --><span class="pprice">{$ngoods.pprice|price}</span><!-- {/if} --></p>
+									
+									</div>
+									
+								</a>
+								</div>
+							</li>
+							
+                            <!--{/foreach}-->
+                        </ul>
+                    </div>
+                    <!--{else}-->
+                    <div class="nothing"><p>{$lang.no_records}</p></div>
+                    <!--{/if}-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script> 
+/*
+	function changeImg(id, img) { 
+		$("#gimg"+id).attr("src", img); 
+	} 
+*/
+</script>
+
+    <div class="clear"></div>
+</div>
+
+{include file=footer.html}

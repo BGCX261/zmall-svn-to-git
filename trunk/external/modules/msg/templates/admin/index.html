@@ -1,0 +1,86 @@
+{include file="header.html"}
+<div class="mrightTop">
+	<div class="fontl">{$lang.welcome}</div>
+</div>
+<div id="rightTop">
+    <ul class="subnav" style="margin-left:0px;">
+        <li><span>{$lang.msglog}</span></li>
+        <li><a class="btn1" href="index.php?module=msg&act=user">{$lang.user}</a></li>
+        <li><a class="btn1" href="index.php?module=msg&act=add">{$lang.addmsg}</a></li>
+        <li><a class="btn1" href="index.php?module=msg&act=send">{$lang.sendmsg}</a></li>
+        <li><a class="btn1" href="index.php?module=msg&act=setting">{$lang.setting}</a></li>
+    </ul>
+</div>
+
+<div class="mrightTop">
+    <div class="fontl">
+       <form method="get">
+            <div class="left">
+              <input name="module" type="hidden" value="msg" />
+              <input name="act" type="hidden" value="index" />
+              <select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
+                </select>:<input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+			  <select class="querySelect" name="state">
+                    <option value="">{$lang.send_state}</option>
+                    {html_options options=$state_list selected=$query.state}
+              </select>
+              <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+            <!--{if $filtered}-->
+            <a class="left formbtn1" href="index.php?module=msg">{$lang.cancel_query}</a>
+            <!--{/if}-->
+      </form>
+    </div>
+    <div class="fontr">
+		{include file=page.top.html}
+    </div>
+</div>
+
+<div class="tdare">
+    <table width="100%" cellspacing="0">
+
+        <tr class="tatr1">
+        	<td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
+            <td width="120">{$lang.post_phone}</td>
+            <td>{$lang.content}</td>
+            <td width="100">{$lang.num}</td>
+			<td width="118">{$lang.time}</td>
+            <td width="109">{$lang.user_name}</td>
+            <td width="72">{$lang.state}</td>
+            <td width="130">{$lang.result}</td>
+            <td width="80">{$lang.handler}</td>
+        </tr>
+
+        <!--{foreach from=$index item=val key=key}-->
+        <tr class="tatr2">
+        	<td class="firstCell"><input type="checkbox" class="checkitem" value="{$val.id}" /></td>
+            <td><b>{$val.to_mobile}</b></td>
+            <td align="left">{$val.content}</td>
+            <td>{$val.quantity}</td>
+            <td>{$val.time|date:Y-m-d H:i:s}</td>
+            <td>{if $val.user_name}{$val.user_name}{else}{$lang.system}{/if}</td>
+            <td>{if $val.state}{$lang.send_success}{else}{$lang.send_failed}{/if}</td>
+            <td>{$val.result|modifier:sms_result}</td>
+            <td class="handler">
+                <a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?module=msg&amp;act=drop&amp;id={$val.id}');">{$lang.drop}</a>
+            </td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="5">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <!--{if $index}-->
+    <div id="dataFuncs">
+        <div id="batchAction" class="left paddingT15">&nbsp;&nbsp;
+            <input class="formbtn batchButton" type="button" value="{$lang.drop}" name="id" uri="index.php?module=msg&act=drop" presubmit="confirm('{$lang.drop_confirm}');" />
+        </div>
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--{/if}-->
+</div>
+{include file="footer.html"}

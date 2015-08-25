@@ -1,0 +1,37 @@
+{include file="header.html"}
+<link href="{res file=css/ecmall.css}" rel="stylesheet" type="text/css" />
+{include file="curlocal.html"}
+<div class="flow_chart">
+    <div class="pos_x1 bg_a2" title="{$lang.shopping_step_one}"></div>
+    <div class="pos_x2 bg_b1" title="{$lang.shopping_step_two}"></div>
+    <div class="pos_x3 bg_c2" title="{$lang.shopping_step_three}"></div>
+</div>
+<form method="post" id="order_form">
+<div class="content">
+    <div class="module_common">
+        <div class="step_main">
+            <div class="main_add">
+                {include file="order.shipping.html"}
+                {include file="order.postscript.html"}
+                {include file="order.amount.html"}
+            </div>
+            <div class="sidelist">
+                {include file="order.goods.html"}
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+</form>
+
+<div class="content">
+	<div style="float:left;width:130px;height:20px;line-height:20px;background:#ececec;font-size:10pt;font-weight:bold;text-align:center;margin-right: 5px;">Payment ready on:</div>
+	<a href="#"><img src="assets/payments/icon_aecard.jpg"></a>
+	<a href="#"><img src="assets/payments/icon_mastercard.jpg"></a>
+	<a href="#"><img src="assets/payments/icon_visacard.jpg"></a>
+	<a href="#" title="Click to Open CupSecure Enrolled Bank list"><img src="assets/payments/icon_unpay.jpg"></a>
+	<a href="#"><img src="assets/payments/icon_alipay.jpg"></a>
+	<a href="#"><img src="assets/payments/icon_paypal.jpg"></a>
+</div>
+	
+{include file="footer.html"}

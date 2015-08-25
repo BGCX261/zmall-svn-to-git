@@ -1,0 +1,412 @@
+{include file="header.html"}
+<style type="text/css">
+.mall-nav{display:none !important;}
+</style>
+<script type="text/javascript">
+//注册表单验证
+$(function(){
+	regionInit("region");
+    $('#register_form').validate({
+        errorPlacement: function(error, element){
+            var error_td = element.parent('td').next('td');
+            error_td.find('.field_notice').hide();
+            error_td.append(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        onkeyup: false,
+        rules : {
+            user_name : {
+                required : true,
+                byteRange: [3,15,'{$charset}'],
+                remote   : {
+                    url :'index.php?app=member&act=check_user&ajax=1',
+                    type:'get',
+                    data:{
+                        user_name : function(){
+                            return $('#user_name').val();
+                        }
+                    },
+                    beforeSend:function(){
+                        var _checking = $('#checking_user');
+                        _checking.prev('.field_notice').hide();
+                        _checking.next('label').hide();
+                        $(_checking).show();
+                    },
+                    complete :function(){
+                        $('#checking_user').hide();
+                    }
+                }
+            },
+            password : {
+                required : true,
+                minlength: 6
+            },
+            password_confirm : {
+                required : true,
+                equalTo  : '#password'
+            },
+			//by cengnlaeng
+			 email : {
+                required : true,
+				email    : true,
+                remote   : {
+                    url :'index.php?app=member&act=check_email&ajax=1',
+                    type:'get',
+                    data:{
+                        email : function(){
+                            return $('#email').val();
+                        }
+                    },
+                    beforeSend:function(){
+                        var _checking = $('#checking_email');
+                        _checking.prev('.field_notice').hide();
+                        _checking.next('label').hide();
+                        $(_checking).show();
+                    },
+                    complete :function(){
+                        $('#checking_email').hide();
+                    }
+                }
+            },
+			phone_mob : {
+				number : true,
+                minlength: 11,
+				maxlength: 11,
+				remote   : {
+                    url :'index.php?app=member&act=check_phone_mob&ajax=1',
+                    type:'get',
+                    data:{
+                        phone_mob : function(){
+                            return $('#phone_mob').val();
+                        }
+                    },
+                    beforeSend:function(){
+                        var _checking = $('#checking_phone_mob');
+                        _checking.prev('.field_notice').hide();
+                        _checking.next('label').hide();
+                        $(_checking).show();
+                    },
+                    complete :function(){
+                        $('#checking_phone_mob').hide();
+                    }
+                }
+            },
+			//end
+            captcha : {
+                required : true,
+                remote   : {
+                    url : 'index.php?app=captcha&act=check_captcha',
+                    type: 'get',
+                    data:{
+                        captcha : function(){
+                            return $('#captcha1').val();
+                        }
+                    }
+                }
+            },
+            agree : {
+                required : true
+            }
+        },
+        messages : {
+            user_name : {
+                required : '必须',
+                byteRange: '长度为3-15个字符',
+                remote   : '已存在'
+            },
+            password  : {
+                required : '必填',
+                minlength: '长度为6-20个字符'
+            },
+            password_confirm : {
+                required : '必填',
+                equalTo  : '{$lang.password_inconsistent}'
+            },
+            email : {
+                required : '必填',
+                email    : '电邮格式错误',
+				remote   : 'EMail地址已存在'
+            },
+			phone_mob : {
+				number : '{$lang.err_number_only}',
+                minlength: '{$lang.err_phone_mob_desc}',
+				maxlength: '{$lang.err_phone_mob_desc}',
+				remote   : '{$lang.phone_mob_already_taken}'
+            },
+            captcha : {
+                required : '必填',
+                remote   : '{$lang.captcha_error}'
+            },
+            agree : {
+                required : '必选'
+            }
+        }
+    });
+});
+</script>
+<script type="text/javascript">
+        /*-------------------------------------------*/
+        var InterValObj; //timer变量，控制时间
+		var count = 120; //间隔函数，1秒执行
+		var curCount;//当前剩余秒数
+		var code = ""; //验证码
+		var codeLength = 6;//验证码长度
+		function sendMessage() {
+            curCount = count;
+			var phone_mob = $("#phone_mob").val();//用户uid
+			if(is_mobile(phone_mob) == false)
+			{
+				alert("手机号格式不正确");
+				return;	
+			}
+            //产生验证码
+			for (var i = 0; i < codeLength; i++) {
+                code += parseInt(Math.random() * 9).toString();
+            }
+            //设置button效果，开始计时
+            $("#btnSendCode").attr("disabled", "true");
+            $("#btnSendCode").val(curCount + "秒后可重新发送");
+            InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+			//向后台发送处理数据
+			
+			$.ajax({
+				type:"POST",
+				url:"index.php",
+				data:'app=find_password&act=sendcode&phone_mob=' + phone_mob + '&code=' + code,
+				dataType:"json",
+				success:function(data){
+					if(data.done){
+						$("#phone_code_tip").show();
+					}
+					else{
+						alert(data.msg);
+					}
+				},
+				error: function(){alert('{$lang.mail_send_failure}');}
+			});
+         }
+        //timer处理函数
+		function SetRemainTime() {
+            if (curCount == 0) {                
+                window.clearInterval(InterValObj);//停止计时器
+                $("#btnSendCode").removeAttr("disabled");//启用按钮
+                $("#btnSendCode").val("重新发送验证码");
+				$("#phone_code_tip").hide();
+                code = ""; //清除验证码。如果不清除，过时间后，输入收到的验证码依然有效    
+            }
+            else {
+                curCount--;
+                $("#btnSendCode").val(curCount + "秒后可重新发送");
+            }
+        }
+		//订单提交页-验证手机号  
+		function is_mobile(mobile) {  
+			 if( mobile == "") {  
+			  return false;  
+			 } else {  
+			   if( ! /^0{0,1}(13[0-9]|15[0-9]|18[0-9]|14[0-9])[0-9]{8}$/.test(mobile) ) {  
+				return false;  
+			  }  
+			  return true;  
+			}  
+		} 
+    </script>
+<div id="page-register">
+    <div class="main w">
+        <div class="title">
+            注册帐号
+        </div>
+        <div class="content  clearfix">
+            <div class="fill-in">
+                <form name="" id="register_form" method="post" action="">
+                    <table>
+                        <tr>
+                            <td colspan="3">
+                                <h4>
+                                    {$lang.enter_register_info}
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {$lang.email}:
+                            </td>
+                            <td>
+                                <input placeholder="可用做登录或者找回密码" type="text" name="email" class="text "
+                                />
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                         <!--手机验证 by psmb-andcpp-->
+                            <!--{if $phone_code}-->
+                            <tr>
+                            <td>
+                                {$lang.phone_mob}:
+                            </td>
+                            <td>
+                                <input placeholder="可用做登录" type="text" name="phone_mob" id="phone_mob"
+                                class="text " />
+                            </td>
+                            <td>
+                                <label id="checking_phone_mob" class="checking hidden">
+                                    {$lang.checking}
+                                </label>
+                            </td>
+                        </tr>
+                            	<td></td>
+                            	<td>
+                                	<input id="btnSendCode" type="button" class="btn_graylong" onclick="sendMessage()" value="{$lang.get_register_code}"></input>
+                                    <div id="phone_code_tip" class="msg_send" style="display:none">
+										<div class="msg-content">验证码已发送，请查收！</div>
+									</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>手机{$lang.check_code}:</td>
+                                <td><input type="text" name="check_code" class="text width4" /></td>
+                            </tr>
+                            <!--{/if}-->
+                            <!--end by psmb-->
+                        
+                        <tr>
+                            <td>
+                                {$lang.user_name}:
+                            </td>
+                            <td>
+                                <input type="text" id="user_name" name="user_name" class="text " />
+                            </td>
+                            <td class="padding3 fontColor4">
+                                <label id="checking_user" class="checking hidden">
+                                    {$lang.checking}
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {$lang.password}:
+                            </td>
+                            <td>
+                                <input type="password" id="password" name="password" class="text " />
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {$lang.password_confirm}:
+                            </td>
+                            <td>
+                                <input type="password" name="password_confirm" class="text " />
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{$lang.region}: </td>
+                            <td>
+                                <div class="select_add" id="region" style="border:1px solide red;">
+                                     <input type="hidden" name="region_id" value="{$store.region_id}" class="mls_id" />
+                                     <input type="hidden" name="region_name" value="{$store.region_name}" class="mls_names" />
+                                     <select class="d_inline">
+                                     <option value="0">{$lang.select_pls}</option>
+                                     {html_options options=$regions}
+                                     </select>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <!--{if $captcha}-->
+                        <tr>
+                            <td>
+                                {$lang.captcha}:
+                            </td>
+                            <td class="align">
+                                <input style="width:100px;" type="text" name="captcha" class="text" id="captcha1"
+                                />
+                                <a href="javascript:change_captcha($('#captcha'));" class="renewedly">
+                                    <img id="captcha" src="index.php?app=captcha&amp;{$random_number}" />
+                                </a>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <!--{/if}-->
+                        <tr>
+                            <td>
+                            </td>
+                            <td class="align">
+                                <input id="clause" type="checkbox" name="agree" value="1" />
+                                <label for="clause">
+                                    {$lang.i_have_read}
+                                    <a href="{url app=article&act=system&code=eula}" target="_blank" class="agreement">
+                                        {$lang.mall_eula}
+                                    </a>
+                                </label>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td colspan="2">
+                                <input type="submit" name="Submit" value="注册" class="login_btn" title="{$lang.register_now}"
+                                />
+                            </td>
+                            <input type="hidden" name="ret_url" value="{$ret_url}" />
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="other-logins">
+                <h3 class="mb20">
+                    <span>
+                        已有ZEUZ账号
+                    </span>
+                    <a href="{url app=member&act=login}">
+                        直接登录
+                    </a>
+                </h3>
+                <!--{if $qqconnect_open || $xwbconnect_open || $alipayconnect_open}-->
+                <p class="mb10 pt10">
+                    {$lang.use_partner_account_login}
+                </p>
+                <ul class="third-party">
+                    <!--{if $qqconnect_open}-->
+                    <li>
+                        <a href="{url app=qqconnect&act=login}" target="_blank">
+                            QQ账号
+                        </a>
+                    </li>
+                    <!--{/if}-->
+                    <!--{if $xwbconnect_open}}-->
+                    <li>
+                        <a href="{url app=xwbconnect&act=login}" target="_blank">
+                            微博账号
+                        </a>
+                    </li>
+                    <!--{/if}-->
+                    <!--{if $alipayconnect_open}}-->
+                    <li style="margin:0px;">
+                        <a href="{url app=alipayconnect&act=login}" target="_blank">
+                            支付宝账号
+                        </a>
+                    </li>
+                    <!--{/if}-->
+                </ul>
+                <!--{/if}-->
+                <div class="service-tel">
+                    客服中心热线
+                    <br />
+                    <span>
+                        +852 25257188
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="footer.html"}

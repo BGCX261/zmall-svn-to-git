@@ -1,0 +1,53 @@
+{include file=member.header.html}
+<div class="content">
+    <div class="totline"></div><div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+        <div class="public_index table">
+            <table>
+                <tr class="line_bold">
+                    <th class="" colspan="5">
+                    </th>
+                </tr>
+                <!--{if $msglog}-->
+                <tr class="line tr_bgcolor">
+                    <th class="align2">{$lang.to_mobile}</td>
+                    <th>{$lang.content}</th>
+                    <th class="align2">{$lang.quantity}</th>
+                    <th class="align2">{$lang.time}</th>
+                    <th class="align2">{$lang.state}</th>
+                </tr>
+                <!--{/if}-->
+                <!-- {foreach from=$msglog item=log name=v} -->
+                <!--{if $smarty.foreach.v.last}-->
+                <tr class="line_bold"><!--{else}--><tr class="line"><!--{/if}-->
+                    <td class="align2">{$log.to_mobile}</td>
+                    <td>{$log.content|escape}</td>
+                    <td class="align2">{$log.quantity}</td>
+                    <td class="align2">{$log.time|date:Y-m-d H:i:s}</td>
+                    <td class="align2">{if $log.state}{$lang.send_success}{else}{$lang.send_failed}{/if}</td>
+                </tr>
+                <!-- {foreachelse} -->
+                <tr>
+                    <td colspan="5" class="member_no_records">{$lang.no_records}</td>
+                </tr>
+                <!--{/foreach}-->
+                <!--{if $msglog}-->
+                <tr>
+                	<td colspan="5">{include file=member.page.bottom.html}</td>
+                </tr>
+                <!--{/if}-->
+            </table>
+            <div class="wrap_bottom"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="adorn_right1"></div>
+        <div class="adorn_right2"></div>
+        <div class="adorn_right3"></div>
+        <div class="adorn_right4"></div>
+    </div>
+</div>
+<div class="clear"></div>
+{include file=footer.html}

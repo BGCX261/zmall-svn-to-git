@@ -1,0 +1,105 @@
+@charset "utf-8";
+/************** global.css - No need to modify ***************************************************/
+
+body{font-size:12px;margin:0;padding:0;font-family:Arial, Helvetica, sans-serif;min-width:1200px;}
+em,p,ul,dl,dt,dd,ins,h1,h2,h3,h4,form,h1,h2,h3,h4,ins{margin:0;padding:0;font-size:12px}
+ins{text-decoration:none;}
+em{font-style:normal;}
+ul,ol{ list-style:none;}
+input,select{ vertical-align:middle;}
+input,button,select,textarea{outline:none} 
+textarea{resize:none}
+img{border:0;}
+a{text-decoration:none;blr:expression(this.onFocus=this.blur());outline:none}
+a[uri]{cursor:pointer;}
+
+.w-full{width:100%;}
+.w-mall,.w,.w-shop,.w-user{margin:0 auto;}
+.col-sub,.col-main{float:left;}
+.col-bottom{ clear:both}
+.clearfix:after{ content:'\20'; display:block; overflow:hidden; height:0; clear:both;}
+.clear,.clr{clear:both; overflow:hidden;width:0;margin:0;padding:0; height:0; line-height:0; font-size:0;}
+.clearboth{ clear:both;}
+.hidden{ display:none}
+.overflowHidden{ overflow:hidden;}
+.float-left{float:left;}
+.float-right{float:right;}
+.relative{position:relative;}
+.absolute{position:absolute;}
+.inline-block{ display:inline-block;}
+.block{ display:block}
+.pointer{ cursor:pointer}
+
+/* margin,padding */
+.margin5{margin:5px;}
+.margin10{margin:10px;}
+.mt5{margin-top:5px;}
+.mr5{margin-right:5px;}
+.mb5{margin-bottom:5px;}
+.ml5{margin-left:5px;}
+.mt10{margin-top:10px;}
+.mr10{margin-right:10px;}
+.mb10{margin-bottom:10px;}
+.ml10{margin-left:10px;}
+.mt20{margin-top:20px;}
+.mr20{margin-right:20px;}
+.mb20{margin-bottom:20px;}
+.ml20{margin-left:20px;}
+.pt5{padding-top:5px;}
+.pr5{padding-right:5px;}
+.pb5{padding-bottom:5px;}
+.pl5{padding-left:5px;}
+.pt10{padding-top:10px;}
+.pr10{padding-right:10px;}
+.pb10{padding-bottom:10px;}
+.pl10{padding-left:10px;}
+.pt20{padding-top:20px;}
+.pr20{padding-right:20px;}
+.pb20{padding-bottom:20px;}
+.pl20{padding-left:20px;}
+.padding5{padding:5px;}
+.padding10{padding:10px;}
+
+/* text,color */
+.fff{color:#fff;}
+.f60{color:#ff6600;}
+.f66{color:#666;}
+.ddd{color:#ddd;}
+
+.fs18{font-size:18px}
+.fs16{font-size:16px}
+.fs14{font-size:14px}
+.fs12{ font-size:12px;}
+
+.strong{font-weight:bold;}
+.center{ text-align:center}
+
+/* border */
+.border{border:1px #ddd solid}
+.border-t-0{border-top:0;}
+.border-b-0{border-top:0;}
+.border-b{border-bottom:1px #ddd solid}
+.border-t{border-top:1px #ddd solid}
+
+/* global banner */
+.global-image-ads{ position:relative;}
+.global-image-ads .global-image-ads-content{text-align:center; margin:0 auto}
+.global-image-ads .global-image-ads-botton{position:absolute;right:2px;top:2px; height:16px; width:16px; text-align:center; background:#CC0000;color:#fff; line-height:16px; cursor:pointer; font-weight:bold; font-family:"Microsoft yahei"; font-size:100%; vertical-align:baseline}
+
+/**************  global end  ***************************************************/
+
+
+
+
+
+
+/************** common.css - Modified according to the situation ***************************************************/
+
+a{color:#666;}
+a:hover{color: #f33100;text-decoration: underline;}
+
+img.lazyload{background:#fff url(../images/loading.gif) center  center no-repeat;}
+
+.w-mall,.w{width:1055px;}
+.w-shop{}
+.w-user{}

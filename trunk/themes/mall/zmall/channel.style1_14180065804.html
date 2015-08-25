@@ -1,0 +1,74 @@
+{include file=header.html}
+<div id="page-channel">
+	<div class="col-1 w clearfix mb10">
+    	<div class="left float-left" area="col1-left" widget_type="area">
+        <!--{widgets page=14180065804 area=col1-left}-->
+        </div>
+        <div class="right float-right mt10" area="col1-right" widget_type="area">
+        <!--{widgets page=14180065804 area=col1-right}-->
+        </div>
+    </div>
+    <div style="border:0px;width:1055px;" class="col-2 w" area="col-2" widget_type="area">
+    <!--{widgets page=14180065804 area=col-2}-->
+    </div>
+    <div class="col-3 w clearfix mt10">
+    	<div class="left" area="col3-left" widget_type="area">
+        <!--{widgets page=14180065804 area=col3-left}-->
+        </div>
+    	<div class="right">
+        	<div class="w-full" area="col3-right" widget_type="area">
+            <!--{widgets page=14180065804 area=col3-right}-->
+            </div>
+			<style>
+				
+				.channel_goods-list ul li {
+					float: left;
+					margin-right: 17px;
+					width: 202px;
+					height:300px;
+					overflow:hidden;
+				}
+				.channel_goods-list .pdtdata { background:#fff; }
+				.channel_goods-list .pdtdata p { color:#000; font-size:10pt; font-weight:bold; }
+				.channel_goods-list .pdtdata .oprice { text-decoration:line-through;  }
+				.channel_goods-list .pdtdata .pprice { color:#f00; font-size:12pt; font-weight:bold; margin-left:5px; }
+				.channel_goods-list .pdtimg { width:200px; height:200px; overflow:hidden; border:1px solid #dadada; margin-bottom:5px; position:relative; background:#fff; }
+				.channel_goods-list .pdtimg img { width:200px; }
+				
+				.channel_goods-list .pdtimg .icon-discount {position:absolute;right:0px;bottom:0px;width:84px;height:39px;background:url({res file=images}/icon_discount.png) no-repeat;text-align:center;line-height:34px;color:#fff;font-size:12pt;font-weight:bold;}
+			</style>
+             <div class="channel_goods-list mb10 clearfix">
+                <ul class="clearfix">
+					<!-- {foreach from=$goods_list item=goods name=fe_goods} -->
+                    <li {if $smarty.foreach.fe_goods.iteration % 4 eq 0}style="margin-right:0px;margin-left: 2px;"{/if}>
+						<div class="clearfix" style="position:relative;">
+						<a href="{url app=goods&id=$goods.goods_id}" target="_blank">
+							<div class="pdtimg clearfix" style="text-align:center;">
+								<img src="{$goods.default_image}" onmouseover="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$goods._images.1.image_url}');" onmouseout="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$goods.default_image}');" id="gimg{$smarty.foreach.fe_goods.iteration}" />
+								<!-- {if $goods.pprice} --><div class="icon-discount">&nbsp;&nbsp;{$goods.discount}折</div><!-- {/if} -->
+							</div>
+							<div class="pdtdata clearfix">
+								<p>{$goods.goods_name|escape}</p>
+								<p>{$goods.brand|escape}</p>
+								<p><span <!-- {if $goods.pprice} -->class="oprice"<!-- {/if} -->>{$goods.price|price}</span> <!-- {if $goods.pprice} --><span class="pprice">{$goods.pprice|price}</span><!-- {/if} --></p>
+							
+							</div>
+							
+						</a>
+						</div>
+                    </li>
+                    <!--{/foreach}-->
+                </ul>
+                {include file=page.bottom.html}
+            </div>
+			
+			<script> 
+				function changeImg(id, img) { 
+					$("#gimg"+id).attr("src", img); 
+				} 
+			</script>
+        </div>
+		<div style="clear:both;width:100%;display:block;height:0;font-size:0pt;">&nbsp;</div>
+    </div>
+</div>
+{include file=footer.html}

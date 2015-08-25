@@ -1,0 +1,102 @@
+{include file="header.html"}
+<script charset="utf-8" type="text/javascript" src="{lib file=jquery.plugins/jquery.validate.js}" ></script>
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $('#msg_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('right').text('OK!');
+        },
+        rules : {
+            user_name : {
+                required : true,
+            },
+			num : {
+                number : true,
+            },
+        },
+        messages : {
+            user_name : {
+                required : '{$lang.title_required}',
+            },
+			num : {
+                number : '{$lang.number_only}'
+            },
+        }
+    });
+});
+//]]>
+</script>
+<style type="text/css">
+.info th{ width:80px;}
+.info .statist{width:350px;margin-left:20px; padding:5px 10px;clear:both;border:1px #FFC76D solid; background:#FFEFD5;margin-bottom:20px;margin-top:10px;line-height:20px;}
+.info .statist p{ margin-left:40px;}
+.info .statist strong{color:#F00}
+</style>
+<div class="mrightTop">
+	<div class="fontl">{$lang.welcome}</div>
+</div>
+<div id="rightTop">
+    <ul class="subnav" style="margin-left:0px;">
+         <li><a class="btn1" href="index.php?module=msg">{$lang.msglog}</a></li>
+        <li><a class="btn1" href="index.php?module=msg&act=user">{$lang.user}</a></li>
+        <li><span>{$lang.addmsg}</span></li>
+        <li><a class="btn1" href="index.php?module=msg&act=send">{$lang.sendmsg}</a></li>
+         <li><a class="btn1" href="index.php?module=msg&act=setting">{$lang.setting}</a></li>
+    </ul>
+</div>
+    
+<div class="info">
+	<div class="statist">
+		<div>提示：</div>
+        <p>您的账号剩余短信数量：<strong>{$statist.available}</strong>条。</p>
+        <p>成功发送短信数量：<strong>{$statist.used}</strong>条。</p>
+        <p>分配给用户短信数量且未使用：<strong>{$statist.allocated}</strong>条。</p>
+        <p>您目前最多能分配短信：<strong>{$statist.distributable}</strong>条。</p>
+        {if $statist.available le 50}<p>您目前的可用的短信数量已不足<strong>50</strong>条，请尽快到网建平台充值，以免影响网站交易</p>{/if}
+	</div>
+	<form method="post" enctype="multipart/form-data" id="msg_form">
+  		<table class="infoTable">
+            <tr>
+                <th class="paddingT15">{$lang.user_name}:</th>
+                <td class="paddingT15 wordSpacing5">
+				<input name="user_name" type="text" value="{$user.user_name}" size="10">
+                <label class="field_notice">{$lang.user_name_desc}</label>
+				</td>
+            </tr>
+            <tr>
+                <th class="paddingT15">{$lang.num}:</th>
+              <td class="paddingT15 wordSpacing5">
+				<input name="num" type="text" size="10">
+                <label class="field_notice">{$lang.num_desc}</label>
+				</td>
+            </tr>
+            <tr>
+                <th class="paddingT15">{$lang.command}:</th>
+           <td class="paddingT15 wordSpacing5">
+               <input name="add_dec" type="radio" value="1" checked="CHECKED" /> {$lang.add_msg}&nbsp;&nbsp;
+               <input type="radio" name="add_dec" value="0"/> {$lang.dec_msg}
+			  </td>
+            </tr>
+			<tr>
+                <th class="paddingT15">{$lang.command_log}:</th>		
+                <td class="paddingT15 wordSpacing5">
+				<textarea name="log_text">{$visitor.user_name}{$lang.adminmsglog}</textarea>
+                </td>
+            </tr>
+	
+            <tr>
+            <th></th>
+            <td class="ptb20">
+                <input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+                <input class="formbtn" type="reset" name="Submit2" value="{$lang.reset}" />
+            </td>
+            </tr>
+      </table>
+    </form>	
+</div>
+{include file="footer.html"}

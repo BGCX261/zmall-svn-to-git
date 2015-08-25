@@ -1,0 +1,8 @@
+<div class="rec_index_brand mb10">
+    <h2 class="title"><b></b></h2>
+    <ul class="brand-list w-full clearfix">
+        <!--{foreach from=$widget_data item=brand name=fe_brand}-->
+        <li {if $smarty.foreach.fe_brand.iteration % 8 eq 0}style="margin-right:0px;"{/if}><a href="{url app=search&brand=$brand.brand_name|escape:url}"><img src="{$brand.brand_logo}" alt="{$brand.brand_name|escape}" width="121" height="51" title="{$brand.brand_name|escape}" /></a></li>
+        <!--{/foreach}-->
+    </ul>
+</div>

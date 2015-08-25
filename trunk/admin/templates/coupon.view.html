@@ -1,0 +1,49 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p>{$lang.view_coupon}</p>
+    <ul class="subnav">
+        <li><a class="btn1" href="index.php?app=coupon">{$lang.coupon}</a></li>
+    </ul>
+</div>
+<div class="mrightTop">
+    <div class="fontr">
+        {include file=page.top.html}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <!--{if $coupons}-->
+        <tr class="tatr1">
+        	<td width="29"></td>
+            <td align="left">{$lang.coupon_sn}</td>
+            <td>{$lang.if_bind}</td>
+            <td>{$lang.use_time}</td>
+            <td align="left">{$lang.bind_user}</td>
+            <td align="left">{$bind_time}</td>
+        </tr>
+        <!--{/if}-->
+        <!--{foreach from=$coupons item=coupon}-->
+        <tr class="tatr2">
+        	<td width="29"></td>
+            <td>{$coupon.coupon_sn}</td>
+            <td><!--{if $coupon.user_id}--><img src="{$site_url}/themes/mall/zmall/styles/default/images/usable.gif" /><!--{else}--><img src="{$site_url}/themes/mall/zmall/styles/default/images/unusable.gif" /><!--{/if}--></td>
+            <td>{$coupon.remain_times}</td>
+            <td>{$coupon.user_name}</td>
+            <td>{if $coupon.bind_time}{$coupon.bind_time|date:complete}{/if}</td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="7">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <!--{if $coupons}-->
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+    <!--{/if}-->
+</div>
+{include file=footer.html}

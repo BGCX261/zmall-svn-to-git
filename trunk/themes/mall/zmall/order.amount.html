@@ -1,0 +1,46 @@
+                <script type="text/javascript">
+                $(function(){
+                   $('#check_coupon').change(function(){
+					   var amounts = $('#order_amount').html();
+                       var coupon_sn = $('#check_coupon').val();
+                       if(coupon_sn == '')
+                       {
+                           return;
+                       }
+                       $.getJSON("index.php?app=order&act=check_coupon",{coupon_sn: coupon_sn,amount:amounts, store_id: '{$smarty.get.store_id}'}, function(data){
+                           if(data['retval'])
+                           {
+                               $('.unusable').hide();
+                               var msg = '{$lang.usable}';
+                               var str = price_format(data['retval']['price']);
+                               $('.usable').show().html(msg + str).css("display","block");
+                           }
+                           else
+                           {
+                               $('.usable').hide();
+                               $('.unusable').show().css("display","block");
+                               $('#check_coupon').val('');
+                           }
+                       });
+                   });
+               });
+                </script>
+                <div class="make_sure">
+                    <p>{$lang.order_amount}:&nbsp;<strong class="fontsize3" id="order_amount">{$goods_info.amount|price}</strong>{if $goods_info.allow_coupon}&nbsp;&nbsp;<input type="button" class="btn1" onclick="$(this).parent('p').next().toggle();$(this).parent('p').next().children('span').hide();$('#check_coupon').val('');" />{/if}</p>
+                    {if $goods_info.allow_coupon}
+                    <p style="display:none;">
+                    	{$lang.coupon_sn}:&nbsp;
+                    	<select id="check_coupon"   name="coupon_sn" >
+                          <option value="">{$lang.select_coupon}</option>
+                          <!--{foreach from=$coupon_list item=coupon}-->
+                          <option value="{$coupon.coupon_sn}">SN:{$coupon.coupon_sn}({$coupon.coupon_value|price})</option>
+                          <!--{/foreach}-->
+                       </select>
+                       <span class="usable">{$lang.usable}</span> <span class="unusable">{$lang.unusable}</span>
+                    </p>
+                    {/if}
+                    <p>
+                        <a href="javascript:void($('#order_form').submit());" class="btn">{$lang.shopping_step_three}</a>
+                        <a href="{url app=cart&store_id=$goods_info.store_id}" class="back">{$lang.backto_cart}</a>
+                    </p>
+                </div>

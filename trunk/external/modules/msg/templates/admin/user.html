@@ -1,0 +1,79 @@
+{include file="header.html"}
+<!--/*<script language="javascript">
+$(function(){
+    $('#time').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>*/-->
+<div class="mrightTop">
+	<div class="fontl">{$lang.welcome}</div>
+</div>
+<div id="rightTop">
+    <ul class="subnav" style="margin-left:0px;">
+        <li><a class="btn1" href="index.php?module=msg">{$lang.msglog}</a></li>
+        <li><span>{$lang.user}</span></li>
+        <li><a class="btn1" href="index.php?module=msg&act=add">{$lang.addmsg}</a></li>
+        <li><a class="btn1" href="index.php?module=msg&act=send">{$lang.sendmsg}</a></li>
+         <li><a class="btn1" href="index.php?module=msg&act=setting">{$lang.setting}</a></li>
+    </ul>
+</div>
+
+<div class="mrightTop">
+    <div class="fontl">
+       <form method="get">
+            <div class="left">
+              <input name="module" type="hidden" value="msg" />
+              <input name="act" type="hidden" value="user" />
+              用户名:
+              <input class="queryInput" type="text" name="user_name" value="{$query.user_name|escape}" />
+              <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+      </form>
+    </div>
+    <div class="fontr">
+		{include file=page.top.html}
+    </div>
+</div>
+
+<div class="tdare">
+    <table width="100%" cellspacing="0">
+
+        <tr class="tatr1">
+            <td width="50">id</td>
+            <td width="200">{$lang.user_name}</td>
+			<td width="200">{$lang.phone_mob}</td>
+            <td >{$lang.functions}</td>
+            <td width="80">{$lang.use_num}</td>
+            <td width="80">{$lang.state}</td>
+            <td width="80">{$lang.handler}</td>
+        </tr>
+
+        <!--{foreach from=$user item=val key=key}-->
+        <tr class="tatr2">
+            <td><b>{$val.user_id}</b></td>
+            <td>{$val.user_name}</td>
+            <td>{$val.phone_mob}</td>
+            <td>
+            	<!--{if $functions}-->
+                    {foreach from=$functions item=func}
+                		<input type="checkbox" disabled="disabled" {if $checked_functions.$key.$func} checked{/if} id="function_{$func}" /><label for="function_{$func}">&nbsp;{$lang.$func}</label>&nbsp;&nbsp;
+            		{/foreach}
+                    <!--{/if}-->
+            </td>
+            <td>{$val.num}</td>
+            <td>{if $val.state eq 1}{$lang.open}{else}{$lang.close}{/if}</td>
+            <td><a href="index.php?module=msg&act=add&user_id={$val.user_id}">{$lang.addmsg}</a></td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="5">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <!--{if $user}-->
+<div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+  <!--{/if}-->
+</div>
+{include file="footer.html"}

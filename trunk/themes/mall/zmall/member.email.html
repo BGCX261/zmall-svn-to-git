@@ -1,0 +1,93 @@
+{include file=member.header.html}
+<script type="text/javascript">
+$(function(){
+    $('#email_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        rules : {
+            orig_password : {
+                required : true
+            },
+           email : {
+                required : true,
+                email    : true,
+				remote   : {
+                    url :'index.php?app=member&act=check_email_info&ajax=1',
+                    type:'get',
+                    data:{
+                        email : function(){
+                            return $('#email').val();
+                        }
+                    },
+                    beforeSend:function(){
+                        var _checking = $('#checking_email');
+                        _checking.prev('.field_notice').hide();
+                        _checking.next('label').hide();
+                        $(_checking).show();
+                    },
+                    complete :function(){
+                        $('#checking_email').hide();
+                    }
+                }
+            }
+        },
+        messages : {
+            orig_password : {
+                required : '{$lang.orig_password_empty}'
+            },
+            email : {
+                required   : '{$lang.email_required}',
+                email    : '{$lang.email_invalid}',
+				remote   : '{$lang.email_already_taken}'
+            }
+        }
+    });
+});
+</script>
+<style>
+.borline td { padding:10px 0px; }
+.ware_list th { text-align:left; }
+.bgwhite { background: #FFFFFF;}
+</style>
+<div class="content">
+    {include file=member.menu.html}
+    <div id="right">
+    	<!--{if $_curlocal}-->
+        <div id="path">
+            {$lang.curlocal}:
+            <!--{foreach from=$_curlocal item=lnk}-->
+            <!--{if $lnk.url}-->
+            <a href="{$lnk.url}">{$lnk.text|escape}</a> <span>&#8250;</span>
+            <!--{else}-->
+            {$lnk.text|escape}
+            <!--{/if}-->
+            <!--{/foreach}-->
+        </div>
+        <!--{/if}-->
+        {include file=member.submenu.html}
+        <div class="eject_con bgwhite">
+            <div class="add">
+                <form method="post" id="email_form">
+                    <ul>
+                        <li><h3>{$lang.orig_password}:</h3>
+                        <p><input class="text width_normal" type="password" name="orig_password" /></p>
+                        </li>
+                        <li><h3>{$lang.email}:</h3>
+                        <p><input class="text width_normal" type="text" name="email" id="email" /></p>
+                        </li>
+                    </ul>
+                    <div class="submit">
+                                    <input class="btn" type="submit" value="{$lang.submit}" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file=footer.html}

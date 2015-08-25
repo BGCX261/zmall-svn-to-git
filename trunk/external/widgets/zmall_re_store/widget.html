@@ -1,0 +1,12 @@
+<!--{if $widget_data}-->
+<div class="re-store mb10">
+	<div class="title mb10"><h3>{$widget_data.model_name}</h3></div>
+    <div class="content clearfix w-full">
+    <!--{foreach from=$widget_data.ads item=image name=fe_image} -->
+    <a class="img{$smarty.foreach.fe_image.iteration} {if $smarty.foreach.fe_image.first || $smarty.foreach.fe_image.last}big-img{/if}" href="{$image.ad_link_url}" target="_blank"><img title="{$image.ad_title}" src="{$image.ad_image_url}"    /></a>     
+    <!-- {/foreach} -->
+    </div>
+ </div>
+<!--{else}-->
+<center style="padding:10px;">请配置</center>
+<!--{/if}-->

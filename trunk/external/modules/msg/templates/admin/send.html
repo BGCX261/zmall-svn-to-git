@@ -1,0 +1,77 @@
+{include file="header.html"}
+<script charset="utf-8" type="text/javascript" src="{lib file=jquery.plugins/jquery.validate.js}" ></script>
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $('#msg_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('right').text('OK!');
+        },
+        rules : {
+            to_mobile : {
+                required : true,
+            },
+			msg_content : {
+                required : true,
+            },
+        },
+        messages : {
+            to_mobile : {
+                required : '{$lang.title_required}',
+            },
+			msg_content : {
+                required : '{$lang.title_required}',
+            },
+        }
+    });
+});
+//]]>
+</script>
+<style type="text/css">
+.info th{ width:80px;}
+</style>
+<div class="mrightTop">
+	<div class="fontl">{$lang.welcome}</div>
+</div>
+<div id="rightTop">
+    <ul class="subnav" style="margin-left:0px;">
+         <li><a class="btn1" href="index.php?module=msg">{$lang.msglog}</a></li>
+        <li><a class="btn1" href="index.php?module=msg&act=user">{$lang.user}</a></li>
+        <li><a class="btn1" href="index.php?module=msg&act=add">{$lang.addmsg}</a></li>
+        <li><span>{$lang.sendmsg}</span></li>
+        <li><a class="btn1" href="index.php?module=msg&act=setting">{$lang.setting}</a></li>
+    </ul>
+</div>
+
+<div class="info">
+  <form method="post" enctype="multipart/form-data" id="msg_form">
+  	<table class="infoTable">
+            <tr>
+                <th class="paddingT15">{$lang.to_mobile}:</th>
+                <td class="paddingT15 wordSpacing5">
+				<input type="text" class="text width_normal" name="to_mobile" value="" style="width:260px;"/>
+                <label class="field_notice">{$lang.to_mobile_text}</label>
+				</td>
+            </tr>
+            <tr>
+                <th class="paddingT15">{$lang.content}: </th>
+              <td class="paddingT15 wordSpacing5">
+				<textarea class="text width_long" name="msg_content" /></textarea>
+                <label class="field_notice">{$lang.title_desc}</label>
+				</td>
+            </tr>
+            <tr>
+            <th></th>
+            <td class="ptb20">
+                <input class="formbtn" type="submit" name="Submit" value="{$lang.confirm_send}" />
+                <input class="formbtn" type="reset" name="Submit2" value="{$lang.reset}" />
+            </td>
+            </tr>
+      </table>	
+    </form>
+</div>
+{include file="footer.html"}

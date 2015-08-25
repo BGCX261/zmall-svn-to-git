@@ -1,0 +1,63 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#extend_form').validate({
+        errorLabelContainer: $('#warning'),
+        invalidHandler: function(form, validator) {
+               $('#warning').show();
+        },
+        onfocusout : false,
+        onkeyup    : false,
+        rules : {
+            user_name : {
+                required : true
+            }
+        },
+        messages : {
+            user_name : {
+                required   : '{$lang.user_name_required}'
+            }
+        }
+    });
+});
+</script>
+<div id="rightTop">
+    <p>{$lang.extend_coupon}</p>
+    <ul class="subnav">
+        <li><a class="btn1" href="index.php?app=coupon">{$lang.coupon}</a></li>
+    </ul>
+</div>
+<div class="mrightTop">
+</div>
+<div class="info">
+    <form method="post" id="extend_form">
+        <table class="infoTable">
+             <tr>
+                <th style="width:170px;" class="paddingT15" >
+                    {$lang.extend_to_users}:</th>
+                <td class="paddingT15 wordSpacing5">
+                	<textarea name="user_name" cols="23" rows="10"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="paddingT15" ></th>
+                <td class="paddingT15 wordSpacing5">
+                	<span class="field_notice">{$lang.extend_to_users_desc}</span>
+                </td>
+            </tr>
+            <tr>
+                <th class="paddingT15" ></th>
+                <td class="paddingT15 wordSpacing5">
+                	<span class="field_notice">{$lang.extend_to_users_desc1}</span>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td class="ptb20">
+                    <input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{include file=footer.html}

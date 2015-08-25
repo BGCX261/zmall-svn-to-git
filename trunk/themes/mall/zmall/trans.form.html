@@ -1,0 +1,163 @@
+<style type="text/css">
+.editor { margin:0px 22px 0px 125px; }
+.info_table_wrap .submit { width:720px; }
+.info_table { width:720px; }
+.info_table li { width:720px; }
+</style>
+<script type="text/javascript">
+$(function(){
+    regionInit("region");
+    $('#trans_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('right').text('OK!');
+        },
+        onkeyup    : false,
+        rules : {
+            sort_order : {
+                number   : true
+            }
+        },
+        messages : {
+            
+            sort_order  : {
+                number   : '{$lang.number_only}'
+            }
+        }
+    });
+    $('#apply_type').change(function(event) {
+        /* Act on the event */
+        var sval=$(this).val();
+        sel_val(sval);
+    });
+    init();
+
+});
+
+function init()
+{
+     var sval=$('#apply_type').val();
+        sel_val(sval);
+}
+
+function sel_val(val)
+{
+    if(val==1)
+    {
+        $('.apply_num').show();
+        $('.apply_money').hide();
+    }
+    else{
+        $('.apply_num').hide();
+        $('.apply_money').show();
+    }
+}
+</script>
+<style type="text/css">.padding2{padding-left:25px;}</style>
+<ul class="tab">
+    <li class="active">
+        <!--{if $smarty.get.act eq edit}-->
+        {$lang.edit_trans}
+        <!--{else}-->
+        {$lang.add_trans}
+        <!--{/if}--> </li>
+</ul>
+
+<div class="eject_con" style="width: 720px;">
+    <div class="adds">
+        <div id="warning"></div>
+        <form method="post" action="index.php?app=trans&amp;act={$smarty.get.act}&amp;id={$id}" target="pop_warning" name="trans_form" id="trans_form" enctype="multipart/form-data">
+
+            <ul>
+
+                <li>
+                    <h3>{$lang.title}:</h3>
+
+                    <p>
+                        <input type="text" class="text width_normal" name="title" value="{$trans.title|escape}"/>
+                    </p>
+
+                </li>
+
+                <li>
+                    <h3>{$lang.apply_type}:</h3>
+
+                    <p>
+                        <select name="apply_type" id="apply_type" class="text width_normal">
+                            {html_options options=$options.apply_type selected=$trans.apply_type}
+                        </select>
+                    </p>
+
+                </li>
+
+                <li class="apply_num" >
+                    <h3>{$lang.apply_num}:</h3>
+
+                    <p>
+                        <input type="text" class="text width_normal " name="apply_num" value="{$trans.apply_num|escape}"/>
+                    </p>
+
+                </li>
+
+                <li class="apply_money">
+                    <h3>{$lang.apply_money}:</h3>
+
+                    <p>
+                        <input type="text" class="text width_normal " name="apply_money" value="{$trans.apply_money|escape}"/>
+                    </p>
+
+                </li>
+
+                <li>
+                    <h3>{$lang.trans_money}:</h3>
+
+                    <p>
+                        <input type="text" class="text width_normal" name="trans_money" value="{$trans.trans_money|escape}"/>
+                    </p>
+
+                </li>
+
+                <li>
+                    <h3>{$lang.enabled}:</h3>
+                    <p>
+                        <select name="enabled" class="text width_normal">
+                            {html_options options=$options.enabled selected=$trans.apply_type}
+                        </select>
+                    </p>
+
+                </li>
+
+                <li>
+                    <h3>{$lang.region_name}:</h3>
+                    <p>
+                        <div id="region">
+                            <input type="hidden" name="region_id" value="{$trans.region_id}" id="region_id" class="mls_id" />
+                            <input type="hidden" name="region_name" value="{$trans.region_name|escape}" class="mls_names" />
+                            <!-- {if $trans.region_id} -->
+                            <span>{$trans.region_name|escape}</span>
+                            <input type="button" value="{$lang.edit}" class="edit_region" />
+                            <select style="display:none" onchange="hide_error();">
+                                <option>{$lang.select_pls}</option>
+                                {html_options options=$regions}
+                            </select>
+                            <!-- {else} -->
+                            <select onchange="hide_error();">
+                                <option>{$lang.select_pls}</option>
+                                {html_options options=$regions}
+                            </select>
+                            <!-- {/if} --> <b class="field_message" style="font-weight:normal;"><label class="field_notice"></label></b> 
+                        </div>
+                    </p>
+
+                </li>
+
+            </ul>
+            <div class="submit">
+                <input type="submit" class="btn" value="{$lang.submit}" />
+            </div>
+        </form>
+    </div>
+</div>

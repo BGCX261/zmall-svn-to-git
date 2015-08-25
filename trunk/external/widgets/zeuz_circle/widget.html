@@ -1,0 +1,34 @@
+<!--{if $widget_data.ads}-->
+<div class="circle carousel-{$widget_data.model_id}">
+  <div class="control">
+    <a class="prev-1 prev" href="javascript:;"><b></b></a>
+    <a class="next-1 next" href="javascript:;"><b></b></a> 
+  </div>
+  <div class="scroller">
+     <ul class="ks-switchable-content">
+     	<!--{foreach from=$widget_data.ads item=image name=fe_image} -->
+        <li><a href="{$image.ad_link_url}" target="_blank" title="{$image.ad_title}"><img title="{$image.ad_title}" src="{$image.ad_image_url}"  alt="{$image.ad_title}" /></a>
+        </li>       
+        <!-- {/foreach} -->
+      </ul>
+    </div>
+ </div>
+<script>
+KISSY.use("switchable", function(S) {
+var tiny_slide = new S.Carousel('.carousel-{$widget_data.model_id}', {
+steps:1,
+effect: 'fade',
+easing: 'easeOutStrong',
+circular: true,
+prevBtnCls: 'prev',
+nextBtnCls: 'next',
+disableBtnCls: 'disable',
+interval:4,
+autoplay:true,
+lazyDataType: 'img-src' //延迟加载图片？
+});
+});
+</script>
+<!--{else}-->
+<center style="padding:10px;">请配置</center>
+<!--{/if}-->

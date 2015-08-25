@@ -1,0 +1,142 @@
+{include file=header.html}
+<script type="text/javascript">
+function assignCoupon(coupon_id,store_id)
+{
+	var user_id = '{$visitor.user_id}';
+	if(user_id == 0)
+	{
+		alert('请先登录再执行操作！');
+		window.location.href="index.php?app=member&act=login";
+		return false;
+	}
+	var url = SITE_URL + '/index.php?app=coupon_list&act=assign_user';
+	$.getJSON(url,{'user_id':user_id,'coupon_id':coupon_id,'store_id':store_id},function(data){
+		if(data.done)
+		{
+			if(data.retval.getallready == true)
+			{
+				alert('无效操作，一个ID只可以领取一张优惠券。');
+			}
+			else
+			{
+				var t =document.body.scrollTop+window.screen.height/2;
+				$('.eject-box').animate({top:t});
+				var Export = '<div class="inner">'+
+							'<p>您正在免费领取</p>'+
+							'<h3 class="mb5"><strong>1</strong>张<strong>'+data.retval.coupon.store_name+data.retval.coupon.coupon_value+'元</strong>优惠券</h3>'+
+							'<div class="cond mb5">（满'+data.retval.coupon.min_amount+'减'+data.retval.coupon.coupon_value+'）</div>'+
+							'<div class="explain">'+
+							   ' 优惠劵有效期至'+data.retval.coupon.end_time+'<br />'+
+								'每个ID限领1张'+
+							'</div>'+
+							'<button class="mt20" >确定</button>'+
+						'</div>';
+				$('.eject-box .ct').html(Export);
+			}
+		}
+	});
+}
+$(function(){
+	 $(document).bind('click','button',function(){
+		$('.eject-box').css({top:'-150px'});
+	})
+	$('.attribute li dl dd a').click(function(){
+		var v = $(this).attr('v');
+		var k = $(this).parent('dd').attr('entype'); 
+		replaceParam(k,v);
+	})
+})
+/* 替换参数 */
+function replaceParam(key, value)
+{
+    var params = location.search.substr(1).split('&');
+    var found  = false;
+    for (var i = 0; i < params.length; i++)
+    {
+        param = params[i];
+        arr   = param.split('=');
+        pKey  = arr[0];
+        if (pKey == 'page')
+        {
+            params[i] = 'page=1';
+        }
+        if (pKey == key)
+        {
+            params[i] = key + '=' + value;
+            found = true;
+        }
+    }
+    if (!found)
+    {
+        value = transform_char(value);
+        params.push(key + '=' + value);
+    }
+    location.assign(SITE_URL + '/index.php?' + params.join('&'));
+}
+</script>
+<div id="page-coupon-list">
+	<div class="attribute">
+    	<ul>
+        	<!--{if $smarty.get.type eq 's'}-->
+        	<li>
+            	<dl class="clearfix">
+                	<dt>分类</dt>
+                    <dd class="clearfix ml20" entype="cate_id">
+                    	<a href="javascript:;" {if $smarty.get.cate_id eq ''}class="curr"{/if} v=""><span>全部</span></a>
+                    	<!--{foreach from=$scategories item=category}-->
+                        <a href="javascript:;" {if $smarty.get.cate_id eq $category.cate_id}class="curr"{/if} v="{$category.cate_id}"><span>{$category.cate_name|escape}</span></a>
+                        <!--{/foreach}-->
+                    </dd>
+                </dl>
+            </li>
+            <!--{/if}-->
+            <li>
+            	<dl class="clearfix">
+                	<dt>类型</dt>
+                    <dd class="clearfix ml20" entype="type">
+                    	<a href="javascript:;" {if $smarty.get.type eq ''}class="curr"{/if} v=""><span>全部</span></a>
+                        <a href="javascript:;" {if $smarty.get.type eq 's'}class="curr"{/if} v="s"><span>店铺优惠券</span></a>
+                        <a href="javascript:;" {if $smarty.get.type eq 'm'}class="curr"{/if} v="m"><span>商城优惠券</span></a>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+            	<dl class="clearfix">
+                	<dt>金额</dt>
+                    <dd class="clearfix ml20" entype="interval">
+                    	<a href="javascript:;" {if $smarty.get.interval eq ''}class="curr"{/if} v=""><span>全部</span></a>
+                    	<!--{foreach from=$intervals item=interval}-->
+                        <a href="javascript:;" {if $smarty.get.interval eq $interval}class="curr"{/if} v="{$interval}"><span>{$interval}</span></a>
+                        <!--{/foreach}-->
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+	<div class="coupon-wrap w">
+    	<ul class="list clearfix">
+        	<!--{foreach from=$coupons item=coupon name=fe_coupon}-->
+    		<li class="mt10">
+            	<div class="logo"><a href="{url app=coupon_list&act=view&id=$coupon.coupon_id}" target="_blank"><img width="201" src="<!--{if !$coupon.coupon_image}-->/assets/images/coupon_nopic.gif<!--{else}-->{$coupon.coupon_image}<!--{/if}-->" /></a></div>
+                <div class="name"><span><strong>{$coupon.coupon_value}</strong>元<br/>优惠券</span></div>
+                <div class="store-info"><a {if $coupon.store_name}href="{url app=store&id=$coupon.store_id}"{/if} target="_blank">{if $coupon.store_name}{$coupon.store_name|escape}{else}{$site_title}{/if}</a></div>
+                <div class="condition"><span class="pr5">满{$coupon.min_amount}可用</span></div>
+                <p><span>{$coupon.start_time|date:Y.m.d}-<br />{$coupon.end_time|date:Y.m.d}</span></p>
+                <h3><a href="javascript:;" onclick="assignCoupon('{$coupon.coupon_id}',{$coupon.store_id|default:0});">免费领取</a></h3>
+            </li>
+            <!--{/foreach}-->
+    	</ul>
+        <div class="mt20 clearfix">
+        	<span style="float:right;display:inline-block;">{include file=page.bottom.html}</span>
+        </div>
+        <div class="eject-box">
+        	<div class="eject-box-wrap">
+                <div class="tt">提示</div>
+                <div class="ct">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file=footer.html}

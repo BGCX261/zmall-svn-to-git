@@ -1,0 +1,123 @@
+{include file=header.html}
+
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $("select[ectype='order_by']").change(function(){
+        var params = location.search.substr(1).split('&');
+        var key    = 'order';
+        var value  = this.value;
+        var found  = false;
+        for (var i = 0; i < params.length; i++)
+        {
+            param = params[i];
+            arr   = param.split('=');
+            pKey  = arr[0];
+            if (pKey == 'page')
+            {
+                params[i] = 'page=1';
+            }
+            if (pKey == key)
+            {
+                params[i] = key + '=' + value;
+                found = true;
+            }
+        }
+        if (!found)
+        {
+            params.push(key + '=' + value);
+        }
+        location.assign(SITE_URL + '/index.php?' + params.join('&'));
+    });
+});
+//]]>
+</script>
+
+{include file=top.html}
+
+<div id="content">
+    <div id="left">
+        {include file=left.html}
+    </div>
+    
+    <div id="right">
+        <div class="module_special">
+            <h2 class="common_title veins2">
+                <div class="ornament1"></div>
+                <div class="ornament2"></div>
+                <span class="ico1"><span class="ico2">{$search_name|escape}</span></span>
+            </h2>
+            <div class="wrap">
+                <div class="wrap_child">
+                    <!--{if $searched_goods}-->
+					<style>
+						.major ul.list { width:auto; margin:15px 0; }
+						.major ul.list li {
+							float: left;
+							margin-right: 5px;
+							width: 190px;
+							height:400px;
+							overflow:hidden;
+						}
+						.major ul.list li a { text-decoration:none; }
+						.major ul.list li a:hover { text-decoration:underline; }
+						.major ul.list .pdtdata { background:#fff; }
+						.major ul.list .pdtdata p { color:#000; font-size:10pt; font-weight:bold; text-align:left; }
+						
+						.major ul.list .pdtdata .oprice { text-decoration:line-through;  }
+						.major ul.list .pdtdata .pprice { color:#f00; font-size:12pt; font-weight:bold; margin-left:5px; }
+						.major ul.list .pdtimg { width:190px; height:300px; overflow:hidden; border:1px solid #dadada; margin-bottom:5px; position:relative; background:#fff; }
+						
+						.major ul.list .pdtimg img { width:200px; }
+
+						.major ul.list .pdtimg .icon-discount {position:absolute;right:0px;bottom:0px;width:84px;height:39px;background:url({res file=images/icon_discount.png}) no-repeat;text-align:center;line-height:34px;color:#fff;font-size:12pt;font-weight:bold;}
+				
+					</style>
+			
+                    <div class="major">
+                        <ul class="list">
+                            <!--{foreach from=$searched_goods item=sgoods name=fe_goods}-->
+
+							<li {if $smarty.foreach.fe_goods.iteration % 4 eq 0}style="margin-right:0px;margin-left: 2px;"{/if}>
+								<div class="clearfix" style="position:relative;">
+								<a href="{url app=goods&id=$sgoods.goods_id}" target="_blank">
+									<div class="pdtimg clearfix" style="text-align:center;">
+										<img src="{$sgoods.default_image}" onmouseover="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$sgoods._images.1.image_url}');" onmouseout="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$sgoods.default_image}');" id="gimg{$smarty.foreach.fe_goods.iteration}" />
+										<!-- {if $sgoods.pprice} --><div class="icon-discount">&nbsp;&nbsp;{$sgoods.discount}折</div><!-- {/if} -->
+									</div>
+									<div class="pdtdata clearfix">
+										<p>{$sgoods.goods_name|escape}</p>
+										<p>{$sgoods.brand|escape}</p>
+										<p><!-- {if $sgoods.pprice} --><del style="color:#999;">{$sgoods.price|price}</del><span style="color:#f00; margin-left:10px;" >{$sgoods.pprice|price}</span><!--{else}-->{$sgoods.price|price}<!-- {/if} --></p>
+									
+									</div>
+									
+								</a>
+								</div>
+							</li>
+					
+                            <!--{/foreach}-->
+                        </ul>
+                    </div>
+                    {include file=page.bottom.html}
+					
+					<script> 
+						/*
+						function changeImg(id, img) { 
+							$("#gimg"+id).attr("src", img); 
+						}
+						*/
+					</script>
+			
+                    <!--{else}-->
+                    <div class="nothing"><p>{$lang.no_records}</p></div>
+                    <!--{/if}-->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clear"></div>
+</div>
+
+{include file=footer.html}

@@ -1,0 +1,24 @@
+.clearfix:after{ content:'\20'; display:block; overflow:hidden; height:0; clear:both;}
+.btn_graylong { background: url(../images/T1EnyJXh0oXXXXXXXX-135-208.png) no-repeat scroll 0 -130px transparent;    border: medium none;    color: #404040;    cursor: pointer;    display: inline-block;    font-size: 12px;    font-weight: normal;height: 26px;
+line-height: 26px;    overflow: hidden;    padding: 0;    text-align: center;    width: 116px; float:left;}
+.msg_send{ float:left; margin-left:3px; height:24px; line-height:24px; border:1px solid #4DBF00; background-color:#F0FFE5; padding-left:5px;}
+
+.password_box{}
+.password_box .hd {    border-bottom: 1px solid #DADADA;    padding: 25px 0 10px;}
+.password_box .hd_title {    display: inline;    font: 20px/1.6 "微软雅黑","黑体","华文细黑";    margin-right: 10px;}
+.password_box .password {    font-size: 14px;    padding: 20px;}
+.password_box .flowsteps { height: 23px; }
+.password_box .flowsteps ol {  background: none repeat scroll 0 0 #EEEEEE;    margin: 0;    overflow: hidden;    padding: 0; position: relative;}
+.password_box .flowsteps li,.password_box .flowsteps span{ background: url(../images/T1kRWCXeNbXXXXXXXX-15-138.png) no-repeat scroll; color: #777777;}
+.password_box .flowsteps li {float: left;    font-size: 14px;    font-weight: bold;    height: 23px;    line-height: 23px;    overflow: hidden;    text-align: center;}
+.flowsteps span{ display:block;}
+.password_box .flowsteps .current,.password_box .flowsteps .current span {  background-color: #5185B6;background-position: 0 -46px;    color: #FFFFFF; font-weight: normal;}
+.password_box .flowsteps .num4 li,.password_box .flowsteps .num4 .last {  width: 24.9%;}
+.password_box .flowsteps li .first {background-position: 0 -69px;}
+.password_box .flowsteps .next {background-position: 0 -23px;}
+.password_box .flowsteps .next span {  background-position: 0 -22px;}
+.password_box .flowsteps .last {   background-position: 100% -92px;    position: absolute;    right: 0;}
+.login_left{ width:600px;}
+.flowsteps .done span {   background-color: #CDE0F5;    background-position: 0 -46px;    color: #5185B6;}
+
+.check_type{border-bottom: 1px dotted #C3C3C3;    margin: 30px auto 0 auto;    padding-bottom: 15px;    width: 760px;}

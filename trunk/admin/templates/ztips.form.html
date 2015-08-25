@@ -1,0 +1,110 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#ztips_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('right').text('OK!');
+        },
+        rules : {    
+            title : {
+                required : true
+            },
+            cate_id :{
+                required : true
+            },
+            link    :{
+                url     : true
+            },
+            sort_order:{
+               number   : true
+            }
+        },
+        messages : {
+            title : {
+                required : '{$lang.title_empty}'
+            },
+            cate_id : {
+                required : '{$lang.cate_empty}'
+            },
+            link    : {
+                url     : '{$lang.link_limit}'
+            },
+            sort_order  : {
+                number   : '{$lang.number_only}'
+            }
+        }
+    });
+});
+
+function add_uploadedfile(file_data)
+{
+    var newImg = '<tr id="' + file_data.file_id + '" class="tatr2"><input type="hidden" name="file_id[]" value="' + file_data.file_id + '" /><td><img width="40px" height="40px" src="' + SITE_URL + '/' + file_data.file_path + '" /></td><td>' + file_data.file_name + '</td><td><a href="javascript:insert_editor(\'' + file_data.file_name + '\', \'' + file_data.file_path + '\');">{$lang.insert_editor}</a> | <a href="javascript:drop_uploadedfile(' + file_data.file_id + ');">{$lang.drop}</a></td></tr>';
+    $('#thumbnails').prepend(newImg);
+}
+function insert_editor(file_name, file_path){
+    tinyMCE.execCommand('mceInsertContent', false, '<img src="'+ SITE_URL +'/' + file_path + '" alt="'+ file_name + '">');
+}
+function drop_uploadedfile(file_id)
+{
+    if(!window.confirm(lang.uploadedfile_drop_confirm)){
+        return;
+    }
+    $.getJSON('index.php?app=ztips&act=drop_uploadedfile&file_id=' + file_id, function(result){
+        if(result.done){
+            $('#' + file_id).remove();
+        }else{
+            alert('drop_error');
+        }
+    });
+}
+</script>
+{$build_editor}
+{$build_upload}
+<div id="rightTop">
+    <p>{$lang.ztips}</p>
+    <ul class="subnav">
+        <li><a class="btn1" href="index.php?app=ztips">{$lang.manage}</a></li>
+        {if $ztips.tip_id}
+        <li><a class="btn1" href="index.php?app=ztips&amp;act=add">{$lang.add}</a></li>
+        {else}
+        <li><span>{$lang.add}</span></li>
+        {/if}
+    </ul>
+</div>
+
+<div class="info">
+    <form method="post" enctype="multipart/form-data" id="ztips_form">
+        <table class="infoTable">
+            <tr>
+                <th class="paddingT15">
+                    <label for="if_show">{$lang.if_show}:</label></th>
+                <td class="paddingT15 wordSpacing5">
+                    <input id="yes" type="radio" name="if_show" value="1" {if $ztips.if_show eq 1} checked="checked"{/if} />
+                    <label for="yes">{$lang.yes}</label>
+                    <input id="no" type="radio" name="if_show" value="0" {if $ztips.if_show eq 0} checked="checked"{/if} />
+                    <label for="no">{$lang.no}</label>
+                </td>
+            </tr>
+            <tr>
+                <th class="paddingT15">
+                    <label for="ztips">{$lang.content}:</label></th>
+                <td class="paddingT15 wordSpacing5">
+                    <textarea id="ztips" name="content" style="width:650px;height:400px;">{$ztips.content|escape}</textarea>
+                </td>
+            </tr>
+
+        <tr>
+            <th></th>
+            <td class="ptb20">
+                <input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+                <input class="formbtn" type="reset" name="Submit2" value="{$lang.reset}" />
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+{include file="footer.html"}

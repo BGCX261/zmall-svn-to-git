@@ -1,0 +1,123 @@
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $(".ok").mouseover(function(){
+        $(this).next("div").show();
+    });
+    $(".ok").mouseout(function(){
+        $(this).next("div").hide();
+    });
+    $('#waiter_form').validate({
+         errorLabelContainer: $('#warning'),
+        invalidHandler: function(form, validator) {
+           var errors = validator.numberOfInvalids();
+           if(errors)
+           {
+               $('#warning').show();
+           }
+           else
+           {
+               $('#warning').hide();
+           }
+        },
+        rules : {
+		   <!--{if $smarty.get.act eq 'add'}-->
+           waiter_name : {
+                required : true,
+                byteRange: [3,15,'{$charset}'],
+                remote   : {
+                    url :'index.php?app=my_waiter&act=check_user',
+                    type:'get',
+                    data:{
+                        waiter_name : function(){
+                            return $('#waiter_name').val();
+                        }
+                    }
+                }
+            },
+			<!--{/if}-->
+            password: {
+                <!--{if $smarty.get.act eq 'add'}-->
+                required : true,
+                <!--{/if}-->
+                maxlength: 20,
+                minlength: 6
+            }
+        },
+        messages : {
+            waiter_name : {
+                required : '{$lang.waiter_not_empty}',
+                byteRange: '{$lang.waiter_length_limit}',
+                remote   : '{$lang.waiter_exist}'
+            },
+            password : {
+                <!--{if $smarty.get.act eq 'add'}-->
+                required : '{$lang.password_empty}',
+                <!--{/if}-->
+                maxlength: '{$lang.password_limit}',
+                minlength: '{$lang.password_limit}'
+            }
+        }
+    });
+});
+//]]>
+</script>
+<ul class="tab">
+    <li class="active"><!--{if $smarty.get.act eq edit}-->{$lang.edit_waiter}<!--{else}-->{$lang.add_waiter}<!--{/if}--></li>
+</ul>
+<div class="eject_con">
+    <div class="adds">
+        <div id="warning"></div>
+        <form method="post" action="index.php?app=my_waiter&amp;act={$smarty.get.act}<!--{if $smarty.get.waiter_id neq ''}-->&amp;waiter_id={$smarty.get.waiter_id}<!--{/if}-->" target="my_waiter" enctype="multipart/form-data" id="waiter_form">
+        <ul>
+            <li>
+                <h3>{$lang.waiter_name}:</h3>
+                <!--{if $smarty.get.act eq 'edit'}-->
+                <p>{$waiter.waiter_name|escape}</p>
+                <!--{else}-->
+                <p><input type="text" class="text width14" name="waiter_name" value="{$waiter.waiter_name|escape}" id="waiter_name"/><b class="strong">*</b></p>
+                <!--{/if}-->
+            </li>
+            <li>
+                <h3>{$lang.password}:</h3>
+                <p><input type="password" class="text width14" name="password"/><!--{if $waiter.waiter_id} --><span style="color:grey;">{$lang.note_password}</span> <!-- {else} --> <b class="strong">*</b><!--{/if}--></p>
+            </li>
+            <li>
+                <h3>{$lang.email}:</h3>
+                <p><input type="text" class="text width14" name="email" value="{$waiter.email|escape}"/></p>
+            </li>
+            <li>
+                <h3>{$lang.real_name}:</h3>
+                <p><input type="text" class="text width14" name="real_name" value="{$waiter.real_name|escape}"/></p>
+            </li>
+            <li>
+                <h3>{$lang.gender}:</h3>
+                <p>
+                    <label>
+                    <input name="gender" type="radio" value="0" {if $waiter.gender eq 0}checked="checked"{/if} />
+                    {$lang.unknown}</label>
+                    <label>
+                    <input type="radio" name="gender" value="1" {if $waiter.gender eq 1}checked="checked"{/if} />
+                    {$lang.male}</label>
+                    <label>
+                    <input type="radio" name="gender" value="2" {if $waiter.gender eq 2}checked="checked"{/if} />
+                    {$lang.female}</label>
+                 </p>
+            </li>
+            <li>
+                <h3>{$lang.phone_mob}:</h3>
+                <p><input type="text" class="text width14" name="phone_mob" value="{$waiter.phone_mob}"/></p>
+            </li>
+            <li>
+                <h3>{$lang.im_qq}:</h3>
+                <p><input type="text" class="text width14" name="im_qq" value="{$waiter.im_qq}"/></p>
+            </li>
+            <li>
+                <h3>{$lang.im_ww}:</h3>
+                <p><input type="text" class="text width14" name="im_ww" value="{$waiter.im_ww}" /></p>
+            </li>
+        </ul>
+        <div class="submit"><input type="submit" class="btn" value="{$lang.submit}" /></div>
+        </form>
+    </div>
+</div>

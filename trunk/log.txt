@@ -1,0 +1,12 @@
+notify_post：执行日期：20141104112151
+{"prc":"0","src":"0","Ord":"2014110400728393","Ref":"36","PayRef":"49021889","successcode":"0","Amt":"0.01","Cur":"344","Holder":"","AuthId":"","AlertCode":"","remark":"ECMall Order:1430725094","eci":"","payerAuth":"","sourceIp":"180.136.205.221","ipCountry":"CN","payMethod":"ALIPAY","TxTime":"2014-11-04 11:22:36.0","panFirst4":"","panLast4":"","cardIssuingCountry":"--","channelType":"SPC","MerchantId":"88583289"}
+order_info：执行日期：20141104112151
+{"order_id":"36","order_sn":"1430725094","type":"material","extension":"normal","seller_id":"12","seller_name":"psmoban","buyer_id":"3","buyer_name":"buyer","buyer_email":"buyer@ecmall.com","status":"11","add_time":"1415042462","payment_id":"23","payment_name":"\u8054\u6b3e\u901a\uff08Asiapay\uff09","payment_code":"asiapay","out_trade_sn":"","pay_time":null,"pay_message":"","ship_time":null,"invoice_no":null,"express_company":"","finished_time":"0","goods_amount":"0.01","discount":"0.00","order_amount":"0.01","evaluation_status":"0","evaluation_time":"0","anonymous":"0","postscript":"","pay_alter":"1"}
+sign_result：执行日期：20141104112151
+1
+notify：执行日期：20141104112151
+{"prc":"0","src":"0","Ord":"2014110400728393","Ref":"36","PayRef":"49021889","successcode":"0","Amt":"0.01","Cur":"344","Holder":"","AuthId":"","AlertCode":"","remark":"ECMall Order:1430725094","eci":"","payerAuth":"","sourceIp":"180.136.205.221","ipCountry":"CN","payMethod":"ALIPAY","TxTime":"2014-11-04 11:22:36.0","panFirst4":"","panLast4":"","cardIssuingCountry":"--","channelType":"SPC","MerchantId":"88583289"}
+order_status：执行日期：20141104112151
+20
+paynotify_index_order_info：执行日期：20141104112152
+{"order_id":"36","order_sn":"1430725094","type":"material","extension":"normal","seller_id":"12","seller_name":"psmoban","buyer_id":"3","buyer_name":"buyer","buyer_email":"buyer@ecmall.com","status":"20","add_time":"1415042462","payment_id":"23","payment_name":"\u8054\u6b3e\u901a\uff08Asiapay\uff09","payment_code":"asiapay","out_trade_sn":"","pay_time":"1415042511","pay_message":"","ship_time":null,"invoice_no":null,"express_company":"","finished_time":"0","goods_amount":"0.01","discount":"0.00","order_amount":"0.01","evaluation_status":"0","evaluation_time":"0","anonymous":"0","postscript":"","pay_alter":"1"}

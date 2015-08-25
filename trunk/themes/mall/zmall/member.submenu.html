@@ -1,0 +1,9 @@
+        <ul class="tab">
+            <!--{foreach from=$_member_submenu item=_s_m name=member_submenu}-->
+            <!--{if $_curmenu eq $_s_m.name}-->
+            <li class="tab{$smarty.foreach.member_submenu.iteration}" ><span class="active">{$_s_m.text}</span></li>
+            <!--{else}-->
+                <li class="tab{$smarty.foreach.member_submenu.iteration}"><a class="normal " href="{$_s_m.url}">{$_s_m.text}</a></li>
+            <!--{/if}-->
+            <!--{/foreach}-->
+        </ul>

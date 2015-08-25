@@ -1,0 +1,19 @@
+<div class="new_allcategory mb10">
+	<div class="content clearfix">
+		<!--{foreach from=$widget_data.gcategories item=category name=fe_category}-->
+        <!--{if $smarty.foreach.fe_category.iteration le 8}-->
+		<div class="item">
+			<a class="clearfix {if $smarty.foreach.fe_category.first}active{/if}" href="{url app=search&cate_id=$category.id}" target="_blank"><i class="icon{$smarty.foreach.fe_category.iteration}"></i><span>{$category.value|escape}</span></a>
+		</div>
+        <!--{/if}-->
+		<!--{/foreach}-->
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('.new_allcategory .item').hover(function(){
+		$('.new_allcategory .item').children('a').removeClass('active')
+		$(this).children('a').addClass('active');	
+	})	
+})
+</script>

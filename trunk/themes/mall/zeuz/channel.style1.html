@@ -1,0 +1,42 @@
+{include file=header.html}
+<div id="page-channel">
+	<div class="col-1 w clearfix">
+    	<div class="left float-left" area="col1-left" widget_type="area">
+        <!--{widgets page=channel area=col1-left}-->
+        </div>
+        <div class="right float-right mt10" area="col1-right" widget_type="area">
+        <!--{widgets page=channel area=col1-right}-->
+        </div>
+    </div>
+    <div style="border:0px;width:1055px;" class="col-2 w" area="col-2" widget_type="area">
+    <!--{widgets page=channel area=col-2}-->
+    </div>
+    <div class="col-3 w clearfix">
+    	<div class="left" area="col3-left" widget_type="area">
+        <!--{widgets page=channel area=col3-left}-->
+        </div>
+    	<div class="right">
+        	<div class="w-full" area="col3-right" widget_type="area">
+            <!--{widgets page=channel area=col3-right}-->
+            </div>
+            <div class="channel_goods-list mb10 clearfix">
+                <ul class="clearfix">
+                    <!-- {foreach from=$goods_list item=goods name=fe_goods} -->
+                    <li {if $smarty.foreach.fe_goods.iteration % 3 eq 0}style="margin-right:0px;"{/if}>
+                        <dl>
+                            <dt><a href="{url app=goods&id=$goods.goods_id}" target="_blank"><img src="{$goods.default_image}" width="280" height="280" /></a></dt>
+                            <dd class="go2info"><a href="{url app=goods&id=$goods.goods_id}" target="_blank">Goto Buy</a></dd>
+                            <dd class="detail">
+                                <a href="{url app=goods&id=$goods.goods_id}" target="_blank" title="{$goods.goods_name|escape}">{$goods.goods_name|escape}</a>
+                                <span>{$goods.price|price}</span>
+                            </dd>
+                        </dl>
+                    </li>
+                    <!--{/foreach}-->
+                </ul>
+                {include file=page.bottom.html}
+            </div>
+        </div>
+    </div>
+</div>
+{include file=footer.html}

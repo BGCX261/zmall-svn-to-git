@@ -1,0 +1,45 @@
+<div class="new-floor mb20">
+	<div style="border-color:{$widget_data.model_color}" class="title"><img src="{$widget_data.ad0_image_url}" width="360" height="50" /></div>
+    <div class="content w clearfix" style="margin-top:10px;border-left:4px solid {$widget_data.model_color};">
+        <div class="cates">
+            <h3 style="border-color:{$widget_data.model_color}" ><a href="{$widget_data.re_store}" target="_blank">精选店铺</a></h3>
+        
+        	<div class="allcategory-list mt10">
+                <div class="contents clearfix">
+                    <!--{foreach from=$widget_data.gcategories item=category name=fe_category}-->
+                    <!--{if $smarty.foreach.fe_category.iteration le 14}-->
+                    <div class="item">
+                        <div class="pborder">
+                            <p><a uri="{url app=search&cate_id=$category.cate_id}" cate_id="{$category.cate_id}" target="_blank">{$category.cate_name|escape}</a></p>
+                            <div class="line"></div>
+                        </div>
+                        <!--{if $category.children}-->
+                        <div class="pop"  style="{if $category.top}top:{$category.top}{/if}width:572px;">
+							<div class="tipser" id="tipser{$widget_data.wid}{$smarty.foreach.fe_category.iteration}"></div>
+                            <div class="catlist float-left">
+                                <!--{foreach from=$category.children item=child name=fe_child}--> 
+                                <dl class="clearfix" {if $smarty.foreach.fe_child.last} style="border-bottom:0"{/if}>
+                                    <dt class="float-left"><a uri="{url app=search&cate_id=$child.cate_id}" rel="{$widget_data.wid}{$smarty.foreach.fe_category.iteration}" cate_id="{$child.cate_id}"><strong>{$child.cate_name|escape}</strong></a></dt>
+                                    <dd class="float-left">
+                                        <!--{foreach from=$child.children item=child2 name=fe_child2}-->
+                                        <a uri="{url app=search&cate_id=$child2.cate_id}" rel="{$widget_data.wid}{$smarty.foreach.fe_category.iteration}" cate_id="{$child2.cate_id}">{$child2.cate_name|escape}</a>
+                                        <!--{/foreach}-->
+                                    </dd>
+                                </dl> 
+                                <!--{/foreach}-->
+                            </div>    
+                        </div>
+                        <!--{/if}-->
+                    </div>
+                    <!--{/if}-->
+                    <!--{/foreach}-->
+                </div>
+            </div>
+        </div>
+        <div class="ads">
+        	<!--{foreach from=$widget_data.ads item=image name=fe_image} -->
+            <a class="img{$smarty.foreach.fe_image.iteration}" href="{$image.ad_link_url}" target="_blank"><img title="{$image.ad_title}" src="{$image.ad_image_url}"    /></a>     
+            <!-- {/foreach} -->
+        </div>
+    </div>
+</div>

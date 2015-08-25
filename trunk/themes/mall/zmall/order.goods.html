@@ -1,0 +1,23 @@
+                <h4 class="add_title"><b class="ico">{$lang.your_cart_goods}</b></h4>
+                <dl class="article">
+                    <dt>{$lang.store}:&nbsp;<a href="{url app=store&store_id=$goods_info.store_id}" target="_blank">{$goods_info.store_name|escape}</a></dt>
+                    <!--{foreach from=$goods_info.items item=goods key=id}-->
+                    <dd>
+						<input type="checkbox" ectype="ordergoods" name="ordergoods[]" item_id="{$id}" value="{$id}"/>
+                        <p><a href="{url app=goods&id=$goods.goods_id}" target="_blank"><img src="{$goods.goods_image}" alt="{$goods.goods_name|escape}" width="65" height="65" /></a></p>
+                        <h3>
+                            <a target="_blank" href="{url app=goods&id=$goods.goods_id}">{$goods.goods_name|escape}</a>
+                            <span class="attr">{$goods.specification|escape}</span>
+                            <b>{$goods.quantity}{$lang.goods_unit}&nbsp;=&nbsp;<span class="money" quantity="{$goods.quantity}" money="{$goods.subtotal}">{$goods.subtotal|price}</span></b>
+                        </h3>
+                    </dd>
+                    <!--{/foreach}-->
+                </dl>
+				<style type="text/css">
+				.article{ width:217px}
+				.article dd{ width:217px;}
+				.article dd h3{ width:120px;}
+				.article dd h3 a{ height:32px; line-height:16px;}
+				.article dd input{ float:left; margin-top:30px; margin-right:5px;}
+				.make_sure .none{filter: Alpha(Opacity=40);opacity: .4;-moz-opacity:.4;-webkit-opacity:.4; cursor:default;}
+				</style>

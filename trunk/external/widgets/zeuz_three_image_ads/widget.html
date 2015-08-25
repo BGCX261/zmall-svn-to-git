@@ -1,0 +1,9 @@
+<!-- {if $widget_data.ad1_image_url || $widget_data.ad2_image_url || $widget_data.ad3_image_url} -->
+<div class="three-image-ads w-full clearfix mb10">
+    <a href="{$widget_data.ad1_link_url}" target="_blank"><img src="{$widget_data.ad1_image_url}" width="340" height="340" /></a>
+    <a href="{$widget_data.ad2_link_url}" target="_blank"><img src="{$widget_data.ad2_image_url}" width="340" height="340" /></a>
+    <a style="margin-right:0px;margin-left:1px;" href="{$widget_data.ad3_link_url}" target="_blank"><img src="{$widget_data.ad3_image_url}" width="340" height="340" /></a>
+</div>
+<!-- {else} -->
+<div style="padding:10px; text-align:center;">请配置</div>
+<!-- {/if} -->

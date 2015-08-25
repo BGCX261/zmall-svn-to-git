@@ -1,0 +1,82 @@
+{include file=member.header.html}
+<div class="content">
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="eject_btn_two eject_pos1" ><b class="ico4"><a uri="index.php?app=my_waiter&amp;act=add" ectype="dialog" dialog_id="my_waiter_add" dialog_width="460" dialog_title="{$lang.add_waiter}">{$lang.add_waiter}</a></b></div>
+            <div class="public table">
+                <table class="table_head_line">
+                    <!--{if $waiters}-->
+                    <tr class="line_bold">
+                        <th class="width1"><input id="all" type="checkbox" class="checkall" /></th>
+                        <th class="align1" colspan="6">
+                            <span class="all"><label for="all">{$lang.checkall}</label></span>
+                            <a href="javascript:void(0);" class="delete" uri="index.php?app=my_waiter&act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')" ectype="batchbutton">{$lang.drop}</a>
+                        </th>
+                    </tr>
+                    <tr class="gray">
+                        <th class="width1"></th>
+                        <th class="align1">{$lang.user_name} | {$lang.real_name}</th>
+                        <th>{$lang.email}</th>
+                        <th>{$lang.im}</th>
+                        <th>{$lang.last_login}</th>
+                        <th>{$lang.logins}</th>
+                        <th width="150">{$lang.handle}</th>
+                    </tr>
+                    <!--{/if}-->
+                    <!-- {foreach from=$waiters item=waiter name=v} -->
+                    <!--{if $smarty.foreach.v.last}--><tr class="line_bold"><!--{else}--><tr class="line"><!--{/if}-->
+                        <td class="align2"><input type="checkbox" class="checkitem" value="{$waiter.waiter_id}" /></td>
+                        <td class="align1">{$waiter.waiter_name|escape} | {$waiter.real_name}</td>
+                        <td class="align2">{$waiter.email}</td>
+                        <td class="align2">
+                            <!--{if $waiter.im_qq}-->
+                    		<a href="http://wpa.qq.com/msgrd?V=1&amp;uin={$waiter.im_qq|escape}&amp;Site={$waiter.real_name|escape}&amp;Menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=1:{$waiter.im_qq|escape}:4" alt="QQ"></a>
+                    		<!--{/if}-->
+                    		<!--{if $waiter.im_ww}-->
+                    		<a target="_blank" href="http://amos.im.alisoft.com/msg.aw?v=2&uid={$waiter.im_ww|escape:url}&site=cntaobao&s=2&charset={$charset}" ><img border="0" src="http://amos.im.alisoft.com/online.aw?v=2&uid={$waiter.im_ww|escape:url}&site=cntaobao&s=2&charset={$charset}" alt="Wang Wang" /></a>
+                    		<!--{/if}-->
+                        </td>
+                        <td class="align2">{$waiter.last_login|date}<br />{$waiter.last_ip}</td>
+                        <td class="align2">{$waiter.logins}</td>
+                        <td width="150">
+                           <a href="javascript:void(0);" uri="index.php?app=my_waiter&amp;act=edit&waiter_id={$waiter.waiter_id}" dialog_id="my_waiter_edit" dialog_title="{$lang.edit}" dialog_width="460" ectype="dialog" class="edit1">{$lang.edit}</a>
+                           <a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?app=my_waiter&amp;act=drop&id={$waiter.waiter_id}');" class="delete">{$lang.drop}</a>
+                           <a href="index.php?app=my_waiter&amp;act=priv&waiter_id={$waiter.waiter_id}" target="_self" class="edit1">{$lang.priv}</a>
+                        </td>
+                    </tr>
+                    <!-- {foreachelse} -->
+                    <tr>
+                        <td colspan="7" class="member_no_records padding6">{$lang.no_records}</td>
+                    </tr>
+                    <!--{/foreach}-->
+                    <!--{if $waiters}-->
+                    <tr>
+                        <th><input id="all2" type="checkbox" class="checkall" /></th>
+                        <th colspan="6">
+                        <p class="position1">
+                            <span class="all"><label for="all2">{$lang.checkall}</label></span>
+                            <a href="javascript:void(0);" class="delete" uri="index.php?app=my_waiter&act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')" ectype="batchbutton">{$lang.drop}</a>
+
+                        </p>
+                        <p class="position2">
+                            {include file=member.page.bottom.html}
+                        </p>
+                        </th>
+                    </tr>
+                    <!--{/if}-->
+                </table>
+            </div>
+            <div class="wrap_bottom"></div>
+        </div>
+        <iframe name="my_waiter" style="display:none"></iframe>
+        <div class="clear"></div>
+        <div class="adorn_right1"></div>
+        <div class="adorn_right2"></div>
+        <div class="adorn_right3"></div>
+        <div class="adorn_right4"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file=footer.html}

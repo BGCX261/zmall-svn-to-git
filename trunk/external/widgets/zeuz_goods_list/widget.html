@@ -1,0 +1,17 @@
+<div class="goods-list mb10">
+	<div class="title"><span>{$widget_data.model_name|escape}</span></div>
+	<ul class="clearfix">
+    	<!-- {foreach from=$widget_data.goods_list item=goods} -->
+        <li>
+        	<dl>
+        		<dt><a href="{url app=goods&id=$goods.goods_id}" target="_blank"><img src="{$goods.default_image}" width="300" height="300" /></a></dt>
+                <dd class="go2info"><a href="{url app=goods&id=$goods.goods_id}" target="_blank">Goto Buy</a></dd>
+        		<dd class="detail">
+                    <a href="{url app=goods&id=$goods.goods_id}" target="_blank" title="{$goods.goods_name|escape}">{$goods.goods_name|escape}</a>
+                    <span>{$goods.price|price}</span>
+                </dd>
+        	</dl>
+        </li>
+        <!--{/foreach}-->
+    </ul>
+</div>

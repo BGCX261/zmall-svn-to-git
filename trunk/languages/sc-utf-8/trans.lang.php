@@ -1,0 +1,33 @@
+<?php
+return array(
+   'apply_conditions'=>'满足条件',//360cd.cn
+         'apply_num'=>'达到数量',
+         'apply_money'=>'达到金额',
+         'apply_type'=>'类型',
+         'title'=>'标题',
+         'id'=>'ID',
+         'trans_money'=>'运费',
+         'enabled'=>'启用',
+         'add_time'=>'添加时间',
+         'region_name'=>'区域名称',
+         'region_id'=>'配送区域',
+         'store_id'=>'所属店铺',
+         'rules'=>'规则配置',
+         'trans'=>'运费配置',
+         'trans_list'=>'配置列表',
+         'trans_empty'=>'配置为空',
+         'no_trans_to_drop'=>'将移除的运费配置不能为空',
+         'edit_ok'=>'修改成功',
+         'add_ok'=>'添加成功',
+         'edit_again'=>'继续修改',
+         'continue_add'=>'继续添加',
+         'drop_ok'=>'删除成功',
+         'trans_add'=>'配置添加',
+         'trans_name'=>'配置名称',
+         'trans_edit'=>'配置修改',
+         'add_trans'=>'配置添加',
+         'trans_name'=>'配置名称',
+         'edit_trans'=>'配置修改',
+         'base_info'=>'基础信息',
+	);
+?>

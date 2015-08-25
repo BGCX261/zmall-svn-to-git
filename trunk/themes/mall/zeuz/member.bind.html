@@ -1,0 +1,60 @@
+{include file="header.html"}
+<script>
+$(function(){
+	$('input[name="bind_type"]').click(function(){
+		if($(this).val()=='0'){
+			$('#dl_email').show();
+		} else {
+			$('#dl_email').hide();
+		}
+	});
+});
+</script>
+<style>
+.login_left dl dt{width:70px;}
+</style>
+<div class="content">
+    <div class="module_common">
+        <h2>{$lang.member_bind}</h2>
+        <div class="wrap">
+            <div class="wrap_child">
+                <div class="login_con">
+                    <div class="login_left">
+                         
+           
+        		<form method="post" id="login_form">
+                	<table>
+                            <tr>
+                                <td>{$lang.user_name}: </td>
+                                <td><input type="text" name="user_name" class="text width5" /></td>
+                            </tr>
+                            <tr>
+                                <td>{$lang.password}: </td>
+                                <td><input type="password" name="password" class="text width5" /></td>
+                            </tr>
+                            <tr id="dl_email">
+                                <td>{$lang.email}: </td>
+                                <td><input type="text" name="email" class="text width5" /></td>
+                            </tr>
+                            <tr id="dl_email">
+                                <td>{$lang.bind_type}: </td>
+                                <td>
+                                	<input name="bind_type" type="radio" value="0" checked="checked" />{$lang.bind_new_account}
+                            		<input name="bind_type" type="radio" value="1" />{$lang.bind_old_account}
+                                </td>
+                            </tr>
+                            <tr id="dl_email">
+                                <td>&nbsp;</td>
+                                <td><input type="submit" class="login-submit" name="Submit" value="{$lang.submit}" /></td>
+                            </tr>
+                        </table>
+         				</form>
+         	
+      	
+					</div>
+        		</div>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="footer.html"}

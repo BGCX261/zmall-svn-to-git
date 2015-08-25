@@ -1,0 +1,55 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#export_form').validate({
+        errorLabelContainer: $('#warning'),
+        invalidHandler: function(form, validator) {
+               $('#warning').show();
+        },
+        onfocusout : false,
+        onkeyup    : false,
+        rules : {
+            amount : {
+                required : true,
+                digits   : true,
+                range : [1,1000]
+            }
+        },
+        messages : {
+            amount  : {
+                required : '{$lang.amount_required}',
+                digits   : '{$lang.number_only}',
+                range : '{$lang.amount_range}'
+            }
+        }
+    });
+});
+</script>
+<div id="rightTop">
+    <p>{$lang.generate_coupon}</p>
+    <ul class="subnav">
+        <li><a class="btn1" href="index.php?app=coupon">{$lang.coupon}</a></li>
+    </ul>
+</div>
+<div class="mrightTop">
+</div>
+<div class="info">
+    <form method="post" id="export_form">
+        <table class="infoTable">
+             <tr>
+                <th class="paddingT15" >
+                    {$lang.generate_amount}:</th>
+                <td class="paddingT15 wordSpacing5">
+                	<input type="text" name="amount" id="amount" /> <span class="field_notice">{$lang.amount_desc}</span>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td class="ptb20">
+                    <input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{include file=footer.html}

@@ -1,0 +1,161 @@
+{include file="header.html"}
+<style type="text/css">
+.mall-nav{display:none !important;}
+</style>
+<script type="text/javascript">
+$(function(){
+    $('#login_form').validate({
+        errorPlacement: function(error, element){
+            $(element).parent('td').append(error); 
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        onkeyup : false,
+        rules : {
+            login_name : {
+                required : true
+            },
+            password : {
+                required : true
+            },
+            captcha : {
+                required : true,
+                remote   : {
+                    url : 'index.php?app=captcha&act=check_captcha',
+                    type: 'get',
+                    data:{
+                        captcha : function(){
+                            return $('#captcha1').val();
+                        }
+                    }
+                }
+            }
+        },
+        messages : {
+            login_name : {
+                required : '您必须提供一个登录名'
+            },
+            password  : {
+                required : '{$lang.password_required}'
+            },
+            captcha : {
+                required : '{$lang.captcha_required}',
+                remote   : '{$lang.captcha_error}'
+            }
+        }
+    });
+});
+</script>
+<div id="page-register">
+    <div class="main w">
+        <div class="title">
+            注册帐号
+        </div>
+        <div class="content  clearfix">
+            <div style="height:351px;" class="fill-in">
+                <form name="" id="login_form" method="post" action="">
+                    <table>
+                        <tr>
+                            <td colspan="3">
+                                <h4>
+                                    {$lang.enter_register_info}
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                登录名:
+                            </td>
+                            <td>
+                                <input placeholder="电邮账号/手机号码/用户名" type="text" id="login_name" name="login_name"
+                                class="text " />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {$lang.password}:
+                            </td>
+                            <td>
+                                <input type="password" id="password" name="password" class="text " />
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <!--{if $captcha}-->
+                        <tr>
+                            <td>
+                                {$lang.captcha}:
+                            </td>
+                            <td class="align">
+                                <input style="width:100px;" type="text" name="captcha" class="text" id="captcha1"
+                                />
+                                <a href="javascript:change_captcha($('#captcha'));" class="renewedly">
+                                    <img id="captcha" src="index.php?app=captcha&amp;{$random_number}" />
+                                </a>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <!--{/if}-->
+                        <tr>
+                            <td>
+                            </td>
+                            <td colspan="2">
+                                <input type="submit" name="Submit" value="登录" class="login_btn" title="{$lang.register_now}"
+                                />
+                            </td>
+                            <input type="hidden" name="ret_url" value="{$ret_url}" />
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="other-logins">
+                <h3 class="mb20">
+                    <span>
+                        还没有ZEUZ账号
+                    </span>
+                    <a href="{url app=member&act=register}">
+                        注册成为会员
+                    </a>
+                </h3>
+                <!--{if $qqconnect_open || $xwbconnect_open || $alipayconnect_open}-->
+                <p class="mb10 pt10">
+                    {$lang.use_partner_account_login}
+                </p>
+                <ul class="third-party">
+                    <!--{if $qqconnect_open}-->
+                    <li>
+                        <a href="{url app=qqconnect&act=login}" target="_blank">
+                            QQ账号
+                        </a>
+                    </li>
+                    <!--{/if}-->
+                    <!--{if $xwbconnect_open}}-->
+                    <li>
+                        <a href="{url app=xwbconnect&act=login}" target="_blank">
+                            微博账号
+                        </a>
+                    </li>
+                    <!--{/if}-->
+                    <!--{if $alipayconnect_open}}-->
+                    <li style="margin:0px;">
+                        <a href="{url app=alipayconnect&act=login}" target="_blank">
+                            支付宝账号
+                        </a>
+                    </li>
+                    <!--{/if}-->
+                </ul>
+                <!--{/if}-->
+                <div class="service-tel">
+                    客服中心热线
+                    <br />
+                    <span>
+                        +852 25257188
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="footer.html"}

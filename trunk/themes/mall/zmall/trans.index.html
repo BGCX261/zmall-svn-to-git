@@ -1,0 +1,85 @@
+{include file=member.header.html}
+
+<div class="content">
+    <div class="totline"></div><div class="botline"></div>
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="eject_btn_two eject_pos1"><b class="ico3" ectype="dialog" dialog_title="{$lang.trans_add}"
+            dialog_width="740" dialog_id="trans_add" uri="index.php?app=trans&amp;act=add">{$lang.trans_add}</b></div>
+
+        <div class="public table">
+            <table class="table_head_line">
+                <!--{if $trans_list}-->
+                <tr class="line_bold">
+                    <th class="width1"><input type="checkbox" id="all" class="checkall"/></th>
+                    <th class="align1" colspan="11">
+                        <span class="all"><label for="all">{$lang.checkall}</label></span>
+                        <a href="javascript:void(0);" class="" ectype="batchbutton" uri="index.php?app=trans&act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')">{$lang.drop}</a>
+                    </th>
+                </tr>
+                <tr class="gray">
+                    <th></th>
+              
+               <td align="left" class="align1" width="120">{$lang.title}</td>
+               <td align="left" class="align1" width="120">{$lang.apply_type}</td>
+               <td align="left" class="align1" width="120">{$lang.apply_conditions}</td>
+               <td align="left" class="align1" width="120">{$lang.trans_money}</td>
+               <td align="left" class="align1" width="120">{$lang.enabled}</td>
+               <td align="left" class="align1" width="120">{$lang.add_time}</td>
+               <td align="left" class="align1" width="120">{$lang.region_name}</td>
+                  
+                    <th width=80>{$lang.handle}</th>
+                </tr>
+                <!--{/if}-->
+                <!-- {foreach from=$trans_list item=trans name=v} -->
+                <!--{if $smarty.foreach.v.last}--><tr class="line_bold"><!--{else}--><tr class="line"><!--{/if}-->
+                    <td class="align2"><input type="checkbox" class="checkitem" value="{$trans.id}" /></td>
+                       
+                       <td align="left">{$trans.title}</td>
+                       <td align="left">{$options.apply_type[$trans.apply_type]}</td>
+                       <td align="left">{if $trans.apply_type eq '1'}{$trans.apply_num}{else}{$trans.apply_money}{/if}</td>
+                       <td align="left">{$trans.trans_money}</td>
+                       <td align="left">{$options.enabled[$trans.enabled]}</td>
+                       <td align="left">{$trans.add_time|date:Y-m-d H:i:s}</td>
+                       <td align="left">{$trans.region_name}</td>
+       
+               
+
+                    <td class="" align=center><a href="javascript:void(0);" ectype="dialog" dialog_title="{$lang.edit_trans}" dialog_width="750" dialog_id="trans_edit" uri="index.php?app=trans&amp;act=edit&id={$trans.id}" class="">{$lang.edit}</a>  <a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?app=trans&amp;act=drop&id={$trans.id}');" class="">{$lang.drop}</a></td>
+                </tr>
+                <!-- {foreachelse} -->
+                <tr>
+                    <td colspan="12" class="member_no_records padding6">{$lang.no_records}</td>
+                </tr>
+                <!--{/foreach}-->
+                <!--{if $trans_list}-->
+                <tr>
+                    <th><input id="all2" type="checkbox" class="checkall" /></th>
+                    <th colspan="11">
+                    <p class="position1">
+                        <span class="all"><label for="all2">{$lang.checkall}</label></span>
+                        <a href="javascript:void(0);" class="" ectype="batchbutton" uri="index.php?app=trans&act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')">{$lang.drop}</a>
+                    </p>
+                    <p class="position2">
+                    {include file=member.page.bottom.html}
+                    </p>
+                    </th>
+                </tr>
+                <!--{/if}-->
+            </table>
+            </div>
+            <div class="wrap_bottom"></div>
+        </div>
+        <iframe name="pop_warning" style="display:none"></iframe>
+        <div class="clear"></div>
+        <div class="adorn_right1"></div>
+        <div class="adorn_right2"></div>
+        <div class="adorn_right3"></div>
+        <div class="adorn_right4"></div>
+    </div>
+    <div class="clear"></div>
+    </div>
+</div>
+{include file=footer.html}

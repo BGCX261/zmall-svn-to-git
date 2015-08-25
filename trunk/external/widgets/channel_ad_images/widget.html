@@ -1,0 +1,13 @@
+ <!--{if $widget_data.images}-->
+<div class="channel_ads mb10">
+    <ul>
+        <!-- {foreach from=$widget_data.images item=image name=fe_image} -->
+        <li>
+            <a href="{$image.ad_link_url}" target="_blank" target="_blank"><img width="180"  src="{$image.ad_image_url}" /></a>
+        </li>
+        <!-- {/foreach} -->
+    </ul>
+</div>
+<!--{else}-->
+<center style="padding:10px;">请配置</center>
+<!--{/if}-->

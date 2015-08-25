@@ -1,0 +1,50 @@
+
+#footer{border-top: 1px solid #ccc;width:1050px;margin:auto;margin-top:30px;padding-top:20px;}
+#footer .service .txt{width:750px;float:left;}
+#footer .service .txt li{float:left;width:250px;}
+#footer .service .txt li p,#footer .service .txt li p a{color:#555;font-family: Arial;font-size:13px;}
+#footer .service .txt li p{margin-top:7px;}
+#footer .service .txt li p a:hover,#footer .site-info a:hover{color:#000;text-decoration:none;}
+#footer .service .txt li p.login-in a.btn{height:25px;line-height:25px;background:#000;color:#fff;width:80px;text-align:center;display:inline-block;}
+#footer .service .txt li p.login-in{margin-top:12px;}
+#footer .service .txt li p.login-in span{height:25px;border-left:2px solid #000;padding-left:10px;margin-left:10px;display:inline-block;}
+
+#footer .service .footer-ct5{float:right;width:26%;}
+#footer .service .footer-ct5 li{list-style-type: none;font-family: arial;font-size: 9px;font-weight: bold;line-height: 15px;letter-spacing: 1px;color: #000;text-transform: uppercase;margin-bottom: 10px;margin-top: 10px;}
+#footer .service .footer-ct5 ul li ul{padding:0px;}
+#footer .service .footer-ct5 ul li ul li, #footer .service .footer-ct5 ul li ul li a {font-family: arial;font-size: 9px;line-height: 15px;height: 15px;letter-spacing: 1px;color: #666;text-decoration: none;font-weight: normal;vertical-align: middle;}
+#footer .service .footer-ct5 .inner-ul li .form{margin-top: 4px;vertical-align: middle;position:relative;}
+#footer .service .footer-ct5  .inner-ul li .form .text{border: 1px solid #000;margin: 0;padding: 0 0 0 4px;height: 18px;width: 202px;font: italic 11px arial;color: #666;letter-spacing: 0;vertical-align: top;}
+#footer .service .footer-ct5  .inner-ul li .form .submit{width:71px;height:20px;background:url(../images/joinus_v2_m56577569832082497.gif)  no-repeat;position:absolute;right:0px;top:0px;*top:1px;border:0px;cursor:pointer;}
+#footer .service .footer-ct5  .inner-ul li .form .submit:hover{background:url(../images/joinus_rollover_v2_m56577569832082496.gif)  no-repeat;}
+#footer .service .footer-ct5  .inner-ul li .ftr-signup-txt {top: 10px;position: relative;color: #666;font-weight:normal;width:274px;display:block;letter-spacing: 0.9px;}
+#footer .service .footer-ct5  .inner-ul li .knowus {position: absolute;margin-top: 33px;display: block;opacity: 1;width: 273px;height: 20px;background:url(../images/AADia6tyEKaJ2AAAAAElFTkSuQmCC.png) 0 -21px no-repeat;}
+#footer .service .footer-ct5  li .inner-ul2 li{float:left;}
+#footer .service .footer-ct5  li .inner-ul2 li a{background:url(../images/AADia6tyEKaJ2AAAAAElFTkSuQmCC.png) no-repeat;display:inline-block;margin-top: 40px;width: 40px;height: 21px; text-indent:-10000px;}
+#footer .service .footer-ct5  li .inner-ul2 li .s1{background-position: 0 0;width: 30px;height: 21px;}
+#footer .service .footer-ct5  li .inner-ul2 li .s2{background-position: -30px 0;}
+#footer .service .footer-ct5  li .inner-ul2 li .s3{background-position: -70px 0; }
+#footer .service .footer-ct5  li .inner-ul2 li .s4{background-position: -110px 0;}
+#footer .service .footer-ct5  li .inner-ul2 li .s5{background-position: -150px 0;}
+#footer .service .footer-ct5  li .inner-ul2 li .s6{background-position: -190px 0;width: 39px;}
+#footer .service .footer-ct5  li .inner-ul2 li .s7{background-position: -230px 0;width: 44px;}
+
+#footer .site-info{border-top:1px solid #CBCBCA;border-bottom:1px solid #CBCBCA;height: 26px;}
+#footer .site-info a,#footer .site-info span{font-family: arial;font-size: 9px;line-height: 20px;letter-spacing: 1px;color: #666;text-decoration: none;font-weight: normal;text-transform: uppercase;margin-left:10px;}
+
+#footer .service .ads { float:right; width:300px; border:1px solid #dedede; }
+#footer .service .ads .adtitle { clear:both; width:300px; margin:0; background:#dedede; }
+#footer .service .ads .adtitle h2 { padding:5px; }
+#footer .service .ads .ad300 { clear:both; padding:0px; }
+#footer .service .ads .ad300 img { width:300px; border:0; }
+
+#footer .socials {clear:both;}
+#footer .socials li{float:left;}
+#footer .socials li a{background:url(../images/AADia6tyEKaJ2AAAAAElFTkSuQmCC.png) no-repeat;display:inline-block;margin-top:0px;width: 40px;height: 21px; text-indent:-10000px;}
+#footer .socials li .s1{background-position: 0 0;width: 30px;height: 21px;}
+#footer .socials li .s2{background-position: -30px 0;}
+#footer .socials li .s3{background-position: -70px 0; }
+#footer .socials li .s4{background-position: -110px 0;}
+#footer .socials li .s5{background-position: -150px 0;}
+#footer .socials li .s6{background-position: -190px 0;width: 39px;}
+#footer .socials li .s7{background-position: -230px 0;width: 44px;}

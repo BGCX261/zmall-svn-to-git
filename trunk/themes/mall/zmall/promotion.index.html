@@ -1,0 +1,181 @@
+{include file=header.html}
+<script type="text/javascript" src="{lib file=channel_goods.js}" charset="utf-8"></script>
+<script type="text/javascript">
+var upimg   = '{res file=images/up.gif}';
+var downimg = '{res file=images/down.gif}';
+imgUping = new Image();
+imgUping.src = upimg;
+</script>
+<div id="page-search-goods">
+	<!--{if $goods_list}-->
+	<div class="col-1 w clearfix mb10">
+    	<div class="left float-left" area="col1-left" widget_type="area">
+        <!--{widgets page=searchgoods area=col1-left}-->
+        </div>
+        <div class="right float-right mt10" area="col1-right" widget_type="area">
+        <!--{widgets page=searchgoods area=col1-right}-->
+        </div>
+    </div>
+    <!-- {if !$filters.brand && $ming} -->
+	<div class="rec_index_brand mb10 w">
+        <h2 class="title"><b></b></h2>
+        <ul class="brand-list w-full clearfix" ectype="ul_brand">
+            <!--{foreach from=$brands item=brand name=fe_brand}-->
+            <li {if $smarty.foreach.fe_brand.iteration % 8 eq 0}style="margin-right:0px;"{/if}><a title="{$brand.brand|escape} "href="javascript:;"  id="{$brand.brand|escape:url}"><img src="{$brand.brand_logo}" alt="{$brand.brand|escape}" width="121" height="51" title="{$brand.brand|escape}" /></a></li>
+            <!--{/foreach}-->
+        </ul>
+    </div>
+    <!--{/if}-->
+    <div class="main-col w clearfix">
+    	<div class="left">
+         <!--{if $categories}-->
+         	<div class="category mo">
+                <div class="t">商品分类</div>
+                <ul class="ct">
+                    <!--{foreach from=$categories item=category name=fe_category}-->
+                    <li ectype="category"><input type="radio" name="cate_id" value="{$category.cate_id}"/><label><span>{$category.cate_name|escape}</span><em>({$category.count})</em></label></li>
+                    <!--{/foreach}-->
+                </ul>
+            </div>
+            <!--{/if}-->
+            <!--{foreach from=$props item=prop name=fe_prop}-->
+               <div class="pro mo">
+                    <div class="t">{$prop.name}：</div>
+                    <ul class="ct">
+                        <!--{foreach from=$prop.value item=row}-->
+                        <li ectype="dl_props"><input type="radio" id="{$row.pid}:{$row.vid}" selected_props="{$props_selected}"/><label><span>{$row.prop_value|escape}</span><em>({$row.count})</em></label></li>
+                        <!--{/foreach}-->
+                    </ul>
+                </div>
+             <!--{/foreach}-->
+            <div class="w-full" area="left-ad" widget_type="area">
+            <!--{widgets page=searchgoods area=left-ad}-->
+            </div>
+        </div>
+    	<div class="right">
+        	<div class="w-full" area="col3-right" widget_type="area">
+            <!--{widgets page=14044399038 area=col3-right}-->
+            </div>
+			<!--{if $filters}-->
+            <div class="filter clearfix">
+               <span style="float:left;padding-left:20px;padding-top:2px;">您已选择：</span>
+               <div class="attribute float-left" ectype="attribute">
+                  <!--{foreach from=$filters item=filter}-->
+                  <a href="javascript:;" title="{$filter.key}"><b>{$filter.name}:</b> {$filter.value}<span>x</span></a>
+                  <!--{/foreach}-->
+               </div>
+            </div>
+            <!--{/if}--> 
+			
+			<style>
+				
+				.channel_goods-list ul li {
+					float: left;
+					margin-right: 17px;
+					width: 202px;
+					height:400px;
+					overflow:hidden;
+				}
+				
+				.channel_goods-list .pdtdata { background:#fff; }
+				.channel_goods-list .pdtdata p { color:#000; font-size:10pt; font-weight:bold; }
+				
+				.channel_goods-list .pdtdata .oprice { text-decoration:line-through;  }
+				.channel_goods-list .pdtdata .pprice { color:#f00; font-size:12pt; font-weight:bold; margin-left:5px; }
+				.channel_goods-list .pdtdata .dprice { color:#f00; font-size:9pt; font-weight:bold; margin-left:5px; }
+				.channel_goods-list .pdtimg { width:200px; height:300px; overflow:hidden; border:1px solid #dadada; margin-bottom:5px; position:relative; background:#fff; }
+				
+				.channel_goods-list .pdtimg img { width:200px; }
+				
+				.channel_goods-list .pdtimg .icon-discount {position:absolute;right:0px;bottom:0px;width:84px;height:39px;background:url({res file=images}/icon_discount.png) no-repeat;text-align:center;line-height:34px;color:#fff;font-size:12pt;font-weight:bold;}
+				
+			</style>
+            <div class="channel_goods-list mt10 mb10 clearfix">
+                <ul class="clearfix">
+					<!-- {foreach from=$goods_list item=goods name=fe_goods} -->
+                    <li {if $smarty.foreach.fe_goods.iteration % 4 eq 0}style="margin-right:0px;margin-left: 1px;"{/if}>
+						<div class="clearfix" style="position:relative;">
+						<a href="{url app=goods&id=$goods.goods_id}" target="_blank">
+							<div class="pdtimg clearfix" style="text-align:center;">
+								<img src="{$goods.default_image}" onmouseover="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$goods.another_image}');" onmouseout="changeImg('{$smarty.foreach.fe_goods.iteration}', '{$goods.default_image}');" id="gimg{$smarty.foreach.fe_goods.iteration}" />
+								<!-- {if $goods.pro_price} --><div class="icon-discount">&nbsp;&nbsp;{$goods.discount}折</div><!-- {/if} -->
+							</div>
+							<div class="pdtdata clearfix">
+								<p class="name">{$goods.goods_name|escape}</p>
+								<p>{$goods.brand|escape}</p>
+								<p><span <!-- {if $goods.pro_price} -->class="oprice"<!-- {/if} -->>{$goods.price|price}</span> <!-- {if $goods.pro_price} --><span class="pprice">{$goods.pro_price|price}</span><!-- {/if} --></p>
+							
+							</div>
+							
+						</a>
+						</div>
+                    </li>
+                    <!--{/foreach}-->
+                </ul>
+                {include file=page.bottom.html}
+            </div>
+			
+			<script> 
+				function changeImg(id, img) { 
+					$("#gimg"+id).attr("src", img); 
+				} 
+			</script>
+			
+        </div>
+    </div>
+    <div class="search-content w hidden">
+    	<div class="left">
+        	<div class="categories mo">
+            	<h3>{$lang.by_category}</h3>
+                <ul>
+                	<!--{foreach from=$categories item=category name=fe_category}-->
+                    <li><a href="javascript:void(0);" id="{$category.cate_id}">{$category.cate_name|escape}</a>({$category.count})</li>
+                    <!--{/foreach}-->
+                </ul>
+            </div>
+        </div>
+    	<div class="right">
+        <div class="shop_con_list">
+
+            <div class="{$display_mode}" ectype="current_display_mode">
+                <!-- {if $goods_list} -->
+                <ul class="list_pic">
+                    <!--{foreach from=$goods_list item=goods}-->
+                    <li>
+                        <p><a href="{url app=goods&id=$goods.goods_id}" target="_blank"><img src="{$goods.default_image}" /></a></p>
+                        <h3>
+                            <span class="text_link">
+                                <span class="depict">
+                                    <a href="{url app=goods&id=$goods.goods_id}" target="_blank">{$goods.goods_name|escape}</a>
+                                </span>
+                                <span class="info">
+                                    <span>{$lang.store_name}: {$goods.store_name|escape}</span>
+                                    <span class="fontColor5">{$goods.grade_name|escape}</span>
+                                </span>
+                            </span>
+                            <span class="price">{$goods.price|price}</span>
+                            <b>{$lang.sales}: {$goods.sales|default:0} {$lang.unit} | <a href="{url app=goods&act=comments&id=$goods.goods_id}" target="_blank">{$goods.comments|default:0} {$lang.comment}</a></b>
+                        </h3>
+                    </li>
+                    <!--{/foreach}-->
+
+                    <div class="clear"></div>
+                </ul>
+                <!-- {else} -->
+                <div id="no_results">{$lang.no_records}</div>
+                <!-- {/if} -->
+            </div>
+        </div>
+
+        <div class="shop_list_page">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    </div>
+    <!--{else}-->
+    <div style="text-align:center;padding:100px 0px;" class="w">
+        <p class="no_info">{$lang.no_records}</p>
+    </div>
+    <!--{/if}-->
+</div>
+{include file=footer.html}

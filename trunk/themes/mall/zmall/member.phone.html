@@ -1,0 +1,92 @@
+{include file=member.header.html}
+<script type="text/javascript">
+$(function(){
+    $('#phone_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        rules : {
+            orig_password : {
+                required : true
+            },
+           phone : {
+                number   : true,
+                maxlength: 11,
+                minlength: 11,
+				remote   : {
+                    url :'index.php?app=member&act=check_phone_mob&ajax=1',
+                    type:'get',
+                    data:{
+                        phone_mob : function(){
+                            return $('#phone_mob').val();
+                        }
+                    },
+                    beforeSend:function(){
+                        var _checking = $('#checking_phone_mob');
+                        _checking.prev('.field_notice').hide();
+                        _checking.next('label').hide();
+                        $(_checking).show();
+                    },
+                    complete :function(){
+                        $('#checking_phone_mob').hide();
+                    }
+                }
+		   }
+        },
+        messages : {
+            orig_password : {
+                required : '{$lang.orig_password_empty}'
+            },
+            phone : {
+                number   : '{$lang.phone_mob_required}',
+                maxlength: '{$lang.err_phone_mob_desc}',
+                minlength: '{$lang.err_phone_mob_desc}',
+				remote   : '{$lang.phone_mob_already_taken}'
+            }
+        }
+    });
+});
+</script>
+<div class="content">
+    {include file=member.menu.html}
+    <div id="right">
+    	<!--{if $_curlocal}-->
+        <div id="path">
+            {$lang.curlocal}:
+            <!--{foreach from=$_curlocal item=lnk}-->
+            <!--{if $lnk.url}-->
+            <a href="{$lnk.url}">{$lnk.text|escape}</a> <span>&#8250;</span>
+            <!--{else}-->
+            {$lnk.text|escape}
+            <!--{/if}-->
+            <!--{/foreach}-->
+        </div>
+        <!--{/if}-->
+        {include file=member.submenu.html}
+        <div class="wrap">
+        <div class="eject_con bgwhite">
+            <div class="add">
+                <form method="post" id="phone_form">
+                    <ul>
+                        <li><h3>{$lang.orig_password}:</h3>
+                        <p><input class="text width_normal" type="password" name="orig_password" /></p>
+                        </li>
+                        <li><h3>{$lang.phone_mob}:</h3>
+                        <p><input class="text width_normal" type="text" name="phone" value="{$phone_mob}" id="phone_mob"/></p>
+                        </li>
+                    </ul>
+                    <div class="submit">
+                                    <input class="btn" type="submit" value="{$lang.submit}" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file=footer.html}

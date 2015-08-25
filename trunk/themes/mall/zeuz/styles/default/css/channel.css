@@ -1,0 +1,35 @@
+#page-channel .col-3 .left{float:left;width:184px;}
+#page-channel .col-3 .right{float:right;width:861px;}
+
+.channel_ads{border:2px solid #C6B198;border-bottom:0px;width:180px;overflow:hidden;}
+.channel_ads ul li{border-bottom:2px solid #C6B198;}
+
+/*channel_goods-list.css*/
+.channel_goods-list{}
+.channel_goods-list ul{width:861px;}
+.channel_goods-list ul li{float:left;margin-right:10px;width:280px;padding-bottom:10px;}
+.channel_goods-list ul li dt{width:280px;height:280px;border-bottom:1px solid #DDDCDC;}
+.channel_goods-list ul li dd{margin-top:5px;}
+.channel_goods-list ul li .go2info{width:100%;text-align:center;}
+.channel_goods-list ul li .go2info a{display:inline-block;line-height:22px;padding:0px 25px;border:1px solid #A9AAAA;color:#333;}
+.channel_goods-list ul li .detail a{line-height:15px;height:15px;width:100%;overflow:hidden;display:block;color:#333;}
+.channel_goods-list ul li .detail span{margin-top:5px;display:block;color:#333;}
+
+
+.channel_goods-list .page{float:right;margin-top:20px;}
+.down, .down_no, .former, .former_no, .page_link, .page_hover, .nonce { margin-left: 5px; }
+.former { border: 1px solid #ff7a32; display: block; float: left; width: 15px; height: 17px; background: #ff975f url(../images/ico.gif) no-repeat -75px -105px; }
+.former:hover {border: 1px solid #a53a00;}
+.down { display: block; color: #fff; text-decoration: none; padding: 2px 15px 0 8px; float: left; border: 1px solid #ff7a32; background: #ff975f url(../images/ico.gif) no-repeat -30px -128px; }
+.down:hover {border: 1px solid #a53a00;}
+.page_link { color: #666; }
+.page_hover { color: #ff6000; }
+.page_link, .page_hover { font-weight: bold; display: block; float: left; text-decoration: none; padding: 2px 5px 0; font-size: 14px; }
+.page_link:hover, .page_hover:hover { text-decoration: underline; }
+.former_no { border: 1px solid #ddd; display: block; float: left; width: 15px; height: 17px; background: #fff url(../images/ico.gif) no-repeat 5px -105px; }
+.down_no { display: block; color: #fff; text-decoration: none; padding: 2px 15px 0 8px; float: left; border: 1px solid #c7c7c7; background: #e0e0e0 url(../images/ico.gif) no-repeat -30px -128px; }
+.page .nonce { border: 1px solid #ddd; display: block; float: left; height: 17px; text-decoration: none; color: #a3a3a3; line-height: 17px; padding: 0 5px; }
+.stat { float: left; height: 20px; line-height: 20px; color: #a3a3a3; text-decoration: none; }
+
+.top_page { float: right; padding-right: 10px; }
+.top_page p { float: left; line-height: 23px; }

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE charset={$charset}" />
+<meta http-equiv="Content-Type" content="text/html; charset={$charset}" />
+{$page_seo}
+
+<meta name="author" content="MingFONG@ZEUZ" />
+<meta name="copyright" content="Copyright &copy; 2011-2014 INspire2Fashion Company Limited. All Rights Reserved." />
+
+<link href="{res file=css/header.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=css/user.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=css/footer.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+var REAL_SITE_URL = "{$real_site_url}";
+var PRICE_FORMAT = '{$price_format}';
+//]]>
+</script>
+<script type="text/javascript" src="index.php?act=jslang"></script>
+<script type="text/javascript" src="{lib file=jquery.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=ecmall.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=member.js}" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+    $('#left h1 span,h2.title a.fold').click(function(){
+        if($(this).hasClass('span_close')){
+            $(this).removeClass('span_close');
+            $(this).addClass('span_open');
+            this.title = 'open';
+            closeSubmenu($(this).parent());
+        }
+        else{
+            $(this).removeClass('span_open');
+            $(this).addClass('span_close');
+            this.title = 'close';
+            openSubmenu($(this).parent());
+        }
+    });
+
+    var span = $("#child_nav");
+    span.hover(function(){
+        $("#float_layer:not(:animated)").show();
+    }, function(){
+        $("#float_layer").hide();
+    });
+});
+function closeSubmenu(h1){
+    h1.next('ul').css('display', 'none');
+}
+function openSubmenu(h1){
+    h1.next('ul').css('display', '');
+}
+</script>
+<style type="text/css">
+
+#footer {width: 1055px !important;}
+#footer .service .txt li p a{text-decoration:none !important;}
+#footer .service .txt {width: 717px !important}
+#footer .service .txt li{width:239px;}
+#footer .service .footer-ct5{width:280px !important;}
+#footer .service .footer-ct5 .inner-ul li .ftr-signup-txt { width: auto; }
+
+
+#header { width:100%; height:auto; }
+.header-bg { background: #dadada; border-top: 10px solid #000; }
+
+.top-nav { position:relative; background:url(assets/images/zeuz_header_bg.gif) no-repeat; padding:0; }
+.top-nav a { color:#000; margin:0; padding:0; }
+.top-links { color:#000; position:absolute; right:0px; top:5px;}
+.top-links a { color:#000; font-size:11pt; font-weight:bold; margin:0 5px;}
+
+.top-search { background: #000; padding:10px 0; }
+.header-search, .header-icons { margin-top:0px; }
+.header-search input[type="submit"] { background:#fff; color:#000; }
+
+.mall-nav ul .each { width:140px; }
+.mall-nav ul .each a.current, .mall-nav ul .each a:hover { background: #f00; }
+
+.new_allcategory { height:auto; }
+</style>
+{$_head_tags}
+</head>
+
+
+<body>
+
+<div id="header" class="w-full">
+    <div class="header-bg w-full">
+        <div class="top-nav w">
+		   <div class="float-left">
+            <a href="{$site_url}" title="{$site_title}"><img alt="{$site_title}" src="{$site_logo}" /></a>
+           </div>
+		   <div class="top-links">
+			   <!--{if !$visitor.user_id}-->
+			   <a href="{url app=member&act=login&ret_url=$ret_url}">{$lang.login}</a>|
+			   <a href="{url app=member&act=register&ret_url=$ret_url}">{$lang.register}</a>
+			  <!--{else}-->
+			   {$lang.hello},<a href="{url app=member}" style="padding-right:0px;">{$visitor.user_name|escape}</a>
+			   <a href="{url app=member&act=logout}">{$lang.logout}</a>
+			   <!--{/if}-->
+		   </div>
+		   <div class="clearfix"></div>
+        </div>
+        <div class="top-search mb10 w clearfix">
+           
+           <div class="header-search float-left">
+                <form method="get" method="GET" action="{url app=search}">
+                    <input type="hidden" name="app"  value="search"/>
+                    <input type="hidden" name="act"  value="index"/>
+                    <input type="text" name="keyword" />
+                    <input type="submit" value="搜索" />
+                </form>
+           </div>
+           <ul class="header-icons">
+                <li><i class="ic1"></i><a href="{url app=my_favorite}" target="_blank">收藏栏</a></li>
+                <li><i class="ic2"></i><a href="{url app=cart}" target="_blank">购物车</a></li>
+				<li><i class="ic3"></i><a style="border:0px;padding-right:0px;" href="{url app=article&code=help}" target="_blank">客服中心</a></li>
+           </ul>
+       </div>
+    </div>
+</div>
+
+<!--{if $ming}-->
+<div id="header">
+    <h1 title="{$site_title}"><a href="index.php"><img src="{$site_logo}" alt="{$site_title}" /></a></h1>
+    <div id="subnav">
+        <p>
+        	{$lang.hello},{$visitor.user_name|escape}
+       		<!--{if !$visitor.user_id && !$visitor.waiter_id}-->
+            [<a href="{url app=member&act=login&ret_url=$ret_url}">{$lang.login}</a>]
+            [<a href="{url app=member&act=register&ret_url=$ret_url}">{$lang.register}</a>]
+            <!--{else}-->
+            [<a href="{url app=member&act=logout}">{$lang.logout}</a>]
+			<a href="{url app=message&act=newpm}">{$lang.pm}<!--{if $new_message}-->(<span>{$new_message}</span>)<!--{/if}--></a>
+            <!--{/if}-->
+        </p>
+        <p>
+        <!--{if !$visitor.waiter_id}-->
+        <a class="shopping" href="{url app=cart}">{$lang.shopping_cart}</a> <span>|</span>
+        <a class="favorite" href="{url app=my_favorite}">{$lang.favorite}</a> <span>|</span>
+        <a class="note" href="{url app=message&act=newpm}">{$lang.pm}{if $new_message}({$new_message}){/if}</a> <span>|</span>
+        <!--{/if}-->
+        <a class="help" href="{url app=article&code=$acc_help}">{$lang.help_center}</a>
+        </p>
+    </div>
+
+    <div id="topbtn">
+        <div class="topbtn1"></div>
+        <div class="topbtn2"></div>
+        <span id="child_nav">
+            <a class="link user" href="{url app=member}">{$lang.member_center}</a>
+            <ul id="float_layer">
+                <div id="adorn1"></div>
+                <div id="adorn2"></div>
+                <!--{if $visitor.store_id}-->
+                <li><a href="{url app=my_goods}">{$lang.my_goods}</a></li>
+                <li><a href="{url app=seller_order}">{$lang.order_manage}</a></li>
+                <li><a href="{url app=my_qa}">{$lang.my_qa}</a></li>
+                <!--{else}-->
+                <li><a href="{url app=buyer_order}">{$lang.my_order}</a></li>
+                <li><a href="{url app=buyer_groupbuy}">{$lang.my_groupbuy}</a></li>
+                <li><a href="{url app=my_question}">{$lang.my_question}</a></li>
+                <!--{/if}-->
+            </ul>
+        </span>
+        <span>|</span>
+        <a class="link" href="{url app=category}">{$lang.i_want_buy}</a>
+        <span>|</span>
+        <a class="link" href="{url app=my_goods&act=add}">{$lang.i_want_sell}</a>
+    </div>
+    <!--{if $_curlocal}-->
+    <div id="path">
+        {$lang.curlocal}:
+        <!--{foreach from=$_curlocal item=lnk}-->
+        <!--{if $lnk.url}-->
+        <a href="{$lnk.url}">{$lnk.text|escape}</a> <span>&#8250;</span>
+        <!--{else}-->
+        {$lnk.text|escape}
+        <!--{/if}-->
+        <!--{/foreach}-->
+    </div>
+    <!--{/if}-->
+    <div class="search">
+        <form id="" name="" method="get" action="">
+            <div class="input">
+                <div class="input1"></div>
+                <div class="input2"></div>
+                <select name="act" class="select1">
+                <option value="index">{$lang.search_goods}</option>
+                <option value="store">{$lang.search_store}</option>
+                <option value="groupbuy">{$lang.search_groupbuy}</option>
+                </select>
+                <input type="hidden" name="app" value="search" />
+                <input type="text" class="text2" name="keyword" />
+            </div>
+            <input class="btn" type="submit" name="Submit" value=""/>
+        </form>
+    </div>
+</div>
+<!--{/if}-->

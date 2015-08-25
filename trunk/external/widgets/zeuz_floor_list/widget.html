@@ -1,0 +1,23 @@
+<div class="floor-list mb10">
+	<div style="float:left;width:170px;height:413px;">
+		<div style="clear:both;width:165px;height:46px;line-height:46px;border-left:5px solid #ec1d78;background:#e6e6e6;text-align:center;">精選店鋪</div>
+	</div>
+	<div style="float:left;width:790px;height:413px;"></div>
+</div>
+<div class="goods-list mb10" style="display:none;">
+	<div class="title"><span>{$widget_data.model_name|escape}</span></div>
+	<ul class="clearfix">
+    	<!-- {foreach from=$widget_data.goods_list item=goods} -->
+        <li>
+        	<dl>
+        		<dt><a href="{url app=goods&id=$goods.goods_id}" target="_blank"><img src="{$goods.default_image}" width="300" height="300" /></a></dt>
+                <dd class="go2info"><a href="{url app=goods&id=$goods.goods_id}" target="_blank">Goto Buy</a></dd>
+        		<dd class="detail">
+                    <a href="{url app=goods&id=$goods.goods_id}" target="_blank" title="{$goods.goods_name|escape}">{$goods.goods_name|escape}</a>
+                    <span>{$goods.price|price}</span>
+                </dd>
+        	</dl>
+        </li>
+        <!--{/foreach}-->
+    </ul>
+</div>

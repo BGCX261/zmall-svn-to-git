@@ -1,0 +1,66 @@
+{include file=member.header.html}
+<style type="text/css">
+.eject_con .adds ul,.eject_con .adds li{ width:100%}
+.clearfix:after{ content:'\20'; display:block; overflow:hidden; height:0; clear:both;}
+.priv{ height:22px; line-height:22px;}
+.priv input{ vertical-align:middle}
+.priv{width:680px;}
+.priv dt{ float:left; width:120px; color:#444; font-weight:bold;}
+.priv dd{ float:left; width:560px; line-height:22px;}
+.priv dd label{margin-right:8px;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $('input[ectype="checkall"]').click(function(){
+		$(this).parent().nextAll().find('input').attr("checked",$(this).attr("checked"));
+	});
+});
+</script>
+<div class="content">
+    {include file=member.menu.html}
+    <div id="right">
+        {include file=member.submenu.html}
+        <div class="wrap">
+            <div class="eject_con">
+                <div class="adds">
+                    <div id="warning"></div>
+                    <form method="post" action="index.php?app=my_waiter&amp;act=priv&amp;waiter_id={$smarty.get.waiter_id}">
+                    <ul>
+                        <li>
+                            <h3>{$lang.waiter_name}:</h3>
+                            <p>{$waiter.waiter_name|escape}</p>
+                        </li>
+                        <li>
+                            <h3>{$lang.priv_manage}:</h3>
+                            <div style="overflow:hidden;">
+                                <!--{foreach from=$privs key=key item=priv}-->
+                                <dl class="priv clearfix">
+                                	<dt><input  type="checkbox" id="{$key}" ectype="checkall">&nbsp;&nbsp;{$lang.$key}</dt>
+                                    <dd>
+                                    	<!--{foreach from=$priv item=item key=key1}-->
+                                    	<input type="checkbox" value="{$item.value}" id="{$key}:{$key1}" name="priv[{$key}][{$key1}]" {if in_array($item.value,$checked_priv)} checked="checked"{/if} />
+                                    	<label for="{$key}:{$key1}">{$item.label}</label>
+                                        <!--{/foreach}-->
+                                    </dd>
+                                    
+                                </dl>
+                                <!--{/foreach}-->                                
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="submit"><input type="submit" class="btn" value="{$lang.submit}" /></div>
+                    </form>
+                </div>
+            </div>
+            <div class="wrap_bottom"></div>
+        </div>
+        <iframe name="my_waiter" style="display:none"></iframe>
+        <div class="clear"></div>
+        <div class="adorn_right1"></div>
+        <div class="adorn_right2"></div>
+        <div class="adorn_right3"></div>
+        <div class="adorn_right4"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file=footer.html}
